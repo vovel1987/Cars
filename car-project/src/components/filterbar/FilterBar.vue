@@ -9,6 +9,12 @@
              prepend-inner-icon="mdi-plus" variant="solo">
                
             </v-text-field>
+            <div>
+                <v-btn flat=false >
+                <v-icon>mdi-plus</v-icon>
+
+            </v-btn>
+            </div>
        
 
         </v-col>
