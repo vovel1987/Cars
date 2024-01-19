@@ -1,17 +1,18 @@
 <template>
-<v-container style="height: 56px; marginTop:70px;">
+<v-container style="height: 56px; marginTop:70px; marginBottom:30px">
 
     <v-row align='center'>
         <v-col>
          
 
-            <v-text-field  style="width:190px font-size:14px" label="Neu Bestandsaufnahme"
+            <!-- <v-text-field  style="width:190px font-size:14px" label="Neu Bestandsaufnahme"
              prepend-inner-icon="mdi-plus" variant="solo">
                
-            </v-text-field>
+            </v-text-field> -->
             <div>
                 <v-btn flat=false >
                 <v-icon>mdi-plus</v-icon>
+                <p>Neu Bestandsaufnahme</p>
 
             </v-btn>
             </div>
@@ -21,7 +22,7 @@
         <v-spacer />
         <v-col cols='auto'>
             <v-btn flat=false >
-                <v-icon>mdi-cog</v-icon>
+                <v-icon>mdi-tools</v-icon>
 
             </v-btn>
 
@@ -30,7 +31,7 @@
         <v-col cols='auto'>
 
             <v-btn border='none'  flat=false >
-                <v-icon>mdi-currency-usd</v-icon>
+                <v-icon>mdi-currency-eur</v-icon>
 
             </v-btn>
         </v-col >

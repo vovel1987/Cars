@@ -1,13 +1,18 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
+import HauptSite from '../components/HauptSeite.vue'
+import NotFound from '../components/NotFound.vue'
+import SecondCard from '../components/card/SecondCard.vue'
+
 
 const routes = [
   {
     path: '/',
     name: "Home",
     component: HomeView,
-    children: []
+    children: [],
+    redirect:'/stock',
     // component: () => import('@/layouts/default/Default.vue'),
     // children: [
     //   {
@@ -20,6 +25,16 @@ const routes = [
     //   },
     // ],
   },
+  {
+    path:'/stock',name:'Stock',component:HauptSite,
+  },
+
+  {
+    path:'/:notFound(.*)',component:NotFound
+  },
+  {
+     path:'/stock/model/:id',component:SecondCard
+  }
 ]
 
 const router = createRouter({
