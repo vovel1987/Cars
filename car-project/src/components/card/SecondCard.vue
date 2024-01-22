@@ -1,41 +1,47 @@
 <template>
 <div>
 
-    <login-nav :title="car.title"></login-nav>
-    <filter-bar></filter-bar>
-    <v-card class="mx-auto" height='350px' style="border-radius:20px; margin-top:20px; width:400px;" @click="clickMe">
+    <login-nav :textData="car.title"></login-nav>
+    <div style="background-color:rgb(243 237 237);">
 
-        <v-img :src="car.image" height='180px' cover>
+        <filter-bar></filter-bar>
+        <router-link to="/stock/vehicle/:id/overview">
 
-        </v-img>
-        <div class="container">
-            <p style="font-weight:bold; font-size:20px"> {{car.title}}</p>
-            <div>
-                <v-icon color='red'>mdi-currency-eur</v-icon>
-                <v-icon color='red'>mdi-tools</v-icon>
-            </div>
+            <v-card class="mx-auto" height='350px' style="border-radius:20px; margin-top:20px; width:400px;" @click="clickMe">
 
-        </div>
-        <div style="margin:10px">
+                <v-img :src="car.image" height='180px' cover>
 
-            <p style=" font-size:16px; color:grey">
-                Bewertung:{{car.bewerter}}
-            </p>
-            <p>
-                am:{{car.datum}}
-            </p>
-        </div>
-        <div style="margin:10px">
+                </v-img>
+                <div class="container">
+                    <p style="font-weight:bold; font-size:20px"> {{car.title}}</p>
+                    <div>
+                        <v-icon color='red'>mdi-currency-eur</v-icon>
+                        <v-icon color='red'>mdi-tools</v-icon>
+                    </div>
 
-            <p>
-                Vin:{{car.vin}}
-            </p>
-            <p>
-                Besitzer:{{car.name}}
-            </p>
-        </div>
+                </div>
+                <div style="margin:10px">
 
-    </v-card>
+                    <p style=" font-size:16px; color:grey">
+                        Bewertung:{{car.bewerter}}
+                    </p>
+                    <p>
+                        am:{{car.datum}}
+                    </p>
+                </div>
+                <div style="margin:10px">
+
+                    <p>
+                        Vin:{{car.vin}}
+                    </p>
+                    <p>
+                        Besitzer:{{car.name}}
+                    </p>
+                </div>
+
+            </v-card>
+        </router-link>
+    </div>
 </div>
 </template>
 
@@ -78,5 +84,6 @@ export default {
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
+
 }
 </style>

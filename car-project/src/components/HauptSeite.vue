@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="background-color:rgb(243 237 237);">
     <v-app-bar >
 
         <login-nav  :title="title" ></login-nav>

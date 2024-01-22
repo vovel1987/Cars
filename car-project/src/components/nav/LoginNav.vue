@@ -2,24 +2,25 @@
 <div style="width:100%">
     <v-row align='center' justify='center'>
         <v-col cols='1'>
-               <router-link to="/">
+            <router-link to="/">
 
-            <img style="width:65px; cursor: pointer;" src="/images/EberleinLogo2.png">
-               </router-link>
+                <img style="width:65px; cursor: pointer;" src="/images/EberleinLogo2.png">
+            </router-link>
 
         </v-col>
         <v-col cols='3'>
 
-            <h1 v-if="!this.title">
+            <h1 v-if="!this.textData">
                 Modellübersicht
             </h1>
             <h1 v-else>
-                Model: {{title}}
+                {{textData}}
             </h1>
+
         </v-col>
         <v-col>
 
-            <div style="borderRadius:20px; margin-top: 20px;">
+            <div v-if="!this.textData" style="borderRadius:20px; margin-top: 20px;">
                 <v-text-field label="Suche" prepend-inner-icon="mdi-magnify" variant='solo'></v-text-field>
             </div>
         </v-col>
@@ -29,7 +30,7 @@
                 <h2>
                     Hallo
                 </h2>
-                <v-btn flat=false @click="clickButton">
+                <v-btn flat @click="clickButton">
 
                     <v-icon icon=mdi-login></v-icon>
                 </v-btn>
@@ -42,7 +43,7 @@
 
 <script>
 export default {
-    props: ['title'],
+    props: ['textData'],
     data() {
         return {
 

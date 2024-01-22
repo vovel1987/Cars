@@ -10,7 +10,7 @@
                
             </v-text-field> -->
             <div>
-                <v-btn flat=false >
+                <v-btn flat >
                 <v-icon>mdi-plus</v-icon>
                 <p>Neu Bestandsaufnahme</p>
 
@@ -21,7 +21,7 @@
         </v-col>
         <v-spacer />
         <v-col cols='auto'>
-            <v-btn flat=false >
+            <v-btn flat >
                 <v-icon>mdi-tools</v-icon>
 
             </v-btn>
@@ -30,7 +30,7 @@
 
         <v-col cols='auto'>
 
-            <v-btn border='none'  flat=false >
+            <v-btn border='none'  flat >
                 <v-icon>mdi-currency-eur</v-icon>
 
             </v-btn>
