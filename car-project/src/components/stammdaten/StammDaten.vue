@@ -11,7 +11,6 @@
                 <v-list-item>
                     <v-img class="img" cover src='https://media.istockphoto.com/id/1401800610/de/foto/ferrari-488-rennstrecke.jpg?s=612x612&w=0&k=20&c=hMCHVCQOYf08laEHlnLf_mHaxUwH6QiHwGFVNKn-Do8='>
 
-                        
                     </v-img>
 
                 </v-list-item>
@@ -29,9 +28,9 @@
                                 <v-text-field disabled type='input' color="#dddd9b" variant="underlined" model-value="ZdNjhkjhkhkh" label="Fahrgestellnummer"></v-text-field>
                             </v-col>
                             <v-col cols='2'>
-                               <v-icon @click="alert" style="cursor:pointer;" color='rgb(203, 199, 199)'>
-                                mdi-inbox
-                               </v-icon>
+                                <v-icon @click="alert" style="cursor:pointer;" color='rgb(203, 199, 199)'>
+                                    mdi-inbox
+                                </v-icon>
                             </v-col>
                         </v-row>
 
@@ -150,10 +149,8 @@
             </v-list>
         </v-col>
     </v-row>
-     <div style="width:100%">
-    <v-btn  size="x-large" >Bewertungsassistent starten</v-btn>
 
-     </div>
+    <v-btn style="  margin: auto; display: block;margin-top: 40px; background: #d3cfcf;" size="x-large">Bewertungsassistent starten</v-btn>
 
 </div>
 </template>
@@ -192,8 +189,8 @@ export default {
 
     },
 
-    methods:{
-        alert(){
+    methods: {
+        alert() {
             alert('button click')
         }
     }
@@ -220,6 +217,6 @@ export default {
     height: 350px;
     border-radius: 20px;
     position: relative;
-    
+
 }
 </style>
