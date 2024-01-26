@@ -23,6 +23,7 @@
         <v-col cols='auto'>
             <v-btn flat >
                 <v-icon>mdi-tools</v-icon>
+                  <v-tooltip activator="parent" location="start center" >Gutachten unfertig</v-tooltip>
 
             </v-btn>
 
@@ -32,7 +33,7 @@
 
             <v-btn border='none'  flat >
                 <v-icon>mdi-currency-eur</v-icon>
-
+              <v-tooltip activator="parent" location="start center" >Beipreisung unfertig</v-tooltip>
             </v-btn>
         </v-col >
       

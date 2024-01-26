@@ -1,8 +1,8 @@
 <template>
-<div>
+<div class="my-5">
 
-    <login-nav :textData="overview"></login-nav>
-    <nav-second></nav-second>
+    <login-nav class="loginNav" :textData="overview"></login-nav>
+    <nav-second  style="background-color:white;" class="my-15"></nav-second>
 
     <v-row class="py-6">
         <v-col cols='4'>
@@ -217,6 +217,15 @@ export default {
     height: 350px;
     border-radius: 20px;
     position: relative;
+
+}
+.loginNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
 
 }
 </style>

@@ -1,21 +1,21 @@
 <template>
-<div>
-    <login-nav :textData="status"></login-nav>
-    <nav-second></nav-second>
-    
+<div class="my-5">
+    <login-nav class="loginNav" :textData="status"></login-nav>
+    <nav-second class="my-15" style="background-color:white;"></nav-second>
+
     <v-container>
         <v-row>
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-textarea label="Fahrzeugkommentar(wird automatisch gespeichert)"></v-textarea>
+                <v-textarea style="background-color:white;" label="Fahrzeugkommentar(wird automatisch gespeichert)"></v-textarea>
             </v-col>
             <v-spacer> </v-spacer>
         </v-row>
         <v-divider> </v-divider>
         <v-row class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
-                <v-row>
+            <v-col cols="8" style="padding:20px 24px">
+                <v-row style="background-color:white; padding: 0 23px">
                     <v-col cols="3" class="d-flex flex-row ga-5" v-for="(item, i) in items" :key="i">
                         <div v-if="item.value === true">
                             <span>
@@ -31,7 +31,8 @@
                         </div>
                     </v-col>
                 </v-row>
-                <v-row>
+                <v-row style="background-color:white; padding: 0 23px;
+">
                     <v-col>
                         <span> Zusatzinformation: </span>
                         <span class="px-5">
@@ -487,7 +488,18 @@ export default {
 .grayRow {
     background-color: lightgray;
 }
-.letztColumn{
+
+.letztColumn {
     border-bottom: 1px solid lightgray;
+}
+
+.loginNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
+
 }
 </style>

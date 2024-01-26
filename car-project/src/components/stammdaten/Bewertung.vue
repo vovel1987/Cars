@@ -1,8 +1,8 @@
 <template>
-<div>
+<div class="my-5">
 
-    <login-nav :textData="bewertung"></login-nav>
-   <nav-second></nav-second>
+    <login-nav class="loginNav" :textData="bewertung"></login-nav>
+   <nav-second class="my-15" style="background-color:white;"></nav-second>
 
     <h1>Bewertung</h1>
 </div>
@@ -26,3 +26,15 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+.loginNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
+
+}
+</style>

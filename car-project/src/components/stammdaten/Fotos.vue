@@ -1,8 +1,8 @@
 <template>
-<div>
+<div class="my-5">
 
-    <login-nav :textData="fotos"></login-nav>
-    <nav-second></nav-second>
+    <login-nav  class="loginNav"  :textData="fotos"></login-nav>
+    <nav-second class="my-15" style="background-color:white;" ></nav-second>
     <div class="pa-6">
         <v-row>
             <v-col cols='6'>
@@ -82,3 +82,14 @@ export default {
     }
 }
 </script>
+<style scoped>
+.loginNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
+
+}
+</style>

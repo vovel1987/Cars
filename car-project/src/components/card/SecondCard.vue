@@ -1,7 +1,7 @@
 <template>
-<div>
+<div  class="my-5">
 
-    <login-nav :textData="car.title"></login-nav>
+    <login-nav class="loginNav" :textData="car.title"></login-nav>
     <div style="background-color:rgb(243 237 237);">
 
         <filter-bar></filter-bar>
@@ -84,6 +84,15 @@ export default {
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
+
+}
+.loginNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
 
 }
 </style>

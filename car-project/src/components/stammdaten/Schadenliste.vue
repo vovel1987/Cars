@@ -1,10 +1,10 @@
 <template>
-<div>
+<div class="my-5">
 
-    <login-nav :textData="schaden"></login-nav>
-    <nav-second></nav-second>
+    <login-nav class="loginNav" :textData="schaden"></login-nav>
+    <nav-second style="background-color:white;" class="my-15"></nav-second>
 
-    <h1>Schadenliste</h1>
+    
     <v-card style="background-color:#f5f2f2; padding:0 10px">
 
         <v-row style="background-color:white; margin:20px; border-radius:10px;" align='center'>
@@ -92,9 +92,14 @@
         </v-col>
          <v-col align='end'>
             <h2>0 €</h2>
-            <v-btn color='yellow'>
+        </v-col>
+     </v-row>
+     <v-row class="my-5">
+        <v-col align='end'>
+            <v-btn  class="button" color='yellow'>
                 Bepreisung abschliesen
             </v-btn>
+
         </v-col>
      </v-row>
 
@@ -168,3 +173,19 @@ export default {
     }
 }
 </script>
+<style scoped>
+.loginNav{
+     position: fixed;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    background-color: white;
+}
+.button{
+     position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 90%;
+}
+</style>
