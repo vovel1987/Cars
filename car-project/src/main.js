@@ -3,6 +3,10 @@
  *
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
+import axios from 'axios'
+axios.defaults.url = "http://localhost:8000"
+axios.defaults.baseURL = axios.defaults.url + "/api/v1/"
+
 
 // Plugins
 import { registerPlugins } from '@/plugins'

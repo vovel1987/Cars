@@ -55,6 +55,7 @@ import InputNav from './nav/InputNav.vue'
 import LoginNav from './nav/LoginNav.vue'
 import TextNavHaupt from './nav/TextNavHaupt.vue'
 import HauptCard from './card/HauptCard.vue'
+import axios from 'axios'
 
 export default {
     components: {
@@ -67,6 +68,9 @@ export default {
 
     data() {
         return {
+
+            models:[],
+
               
             cars: [{
                     id: 1,
@@ -132,6 +136,26 @@ export default {
 
             ]
         }
+    },
+    mounted(){
+        this.getModels()
+    },
+    methods:{
+
+        getModels(){
+             axios
+                .get(axios.defaults.baseURL + "models/")
+                .then((response) => {
+                    this.models = response.data;
+                    console.log(this.models);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.error = true;
+                });
+        },
+
     }
+
 }
 </script>

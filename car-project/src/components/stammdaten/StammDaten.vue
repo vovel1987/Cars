@@ -2,7 +2,8 @@
 <div class="my-5">
 
     <login-nav class="loginNav" :textData="overview"></login-nav>
-    <nav-second  style="background-color:white;" class="my-15"></nav-second>
+    <nav-second style="background-color:white;" class="my-15"></nav-second>
+
 
     <v-row class="py-6">
         <v-col cols='4'>
@@ -168,30 +169,45 @@ export default {
     data() {
         return {
             overview: 'Stammdaten',
-            info: {},
+            info: [],
             error: false,
             loading: true
 
         }
     },
     mounted() {
-
-        axios.get('https://fakestoreapi.com/products/1')
-            .then(response => {
-
-                this.info = response.data
-                console.log(this.info.title);
-            })
-            .catch(error => {
-                console.log(error);
-                this.error = true
-            })
+        this.getAutos()
 
     },
 
     methods: {
         alert() {
             alert('button click')
+        },
+        // async fetchData() {
+        //     try {
+        //         const response = await axios.get('http://localhost:8000/admin/user/auto/');
+
+        //         const data = response.data
+        //         console.log(data);
+
+        //     } catch (error) {
+        //         console.error('Error', error)
+        //     }
+
+        // },
+        getAutos() {
+
+            const response =  axios.get('http://localhost:8000/api/v1/autos/')
+                .then(response => {
+
+                    this.info = response.data
+                    console.log(this.info);
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.error = true
+                })
         }
     }
 
@@ -219,6 +235,7 @@ export default {
     position: relative;
 
 }
+
 .loginNav {
     position: fixed;
     top: 0;
