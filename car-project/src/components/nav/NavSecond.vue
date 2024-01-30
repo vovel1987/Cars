@@ -46,33 +46,33 @@ export default {
             tabs: [{
                     id: 1,
                     name: "Stammdaten",
-                    route: '/stock/vehicle/:id/overview',
+                    route: '/stock/vehicle/' + this.$route.params.vin + '/overview',
                     title:'Ferrari'
                 },
                 {
                     id: 2,
                     name: "Fotos",
-                    route: '/stock/vehicle/:id/pictures',
+                    route: '/stock/vehicle/' + this.$route.params.vin + '/pictures',
                 },
                 {
                     id: 3,
                     name: "BEWERTUNG",
-                    route: '/stock/vehicle/:id/bewertung',
+                    route: '/stock/vehicle/' + this.$route.params.vin + '/bewertung',
                 },
                 {
                     id: 4,
                     name: "SCHADENLISTE",
-                    route: '/stock/vehicle/:id/damages',
+                    route: '/stock/vehicle/'  + this.$route.params.vin +'/damages',
                 },
                 {
                     id: 5,
                     name:"STATUS" ,
-                    route: '/stock/vehicle/:id/status',
+                    route: '/stock/vehicle/' + this.$route.params.vin +'/status',
                 },
                 {
                     id: 6,
                     name: "DOKUMENTE",
-                    route: '/stock/vehicle/:id/documents',
+                    route: '/stock/vehicle/' + this.$route.params.vin +'/documents',
                 },
 
             ]

@@ -1,8 +1,8 @@
 <template>
 <div style="background-color:rgb(243 237 237);">
-    <v-app-bar >
+    <v-app-bar>
 
-        <login-nav  :title="title" ></login-nav>
+        <login-nav :title="title"></login-nav>
 
         <!-- <v-row align='center' justify='center'>
             <v-col cols="1">
@@ -37,11 +37,20 @@
     <card v-for="car in cars" :key="car.id" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></card>
     </div> -->
     <v-row no-gutters>
-        <v-col v-for="car in cars" :key="car.id" cols="12" sm="4" lg='2'>
+        <!-- <v-col v-for="car in cars" :key="car.id" cols="12" sm="4" lg='2'>
 
             <router-link to="/stock/model/:id">
-            
+
             <haupt-card class="mb-4" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></haupt-card>
+            </router-link>
+        </v-col> -->
+        <v-col v-for="mod in models" :key="mod.id" :id='mod.id' cols="12" sm="4" lg='2'>
+
+            <router-link :to="`stock/model/${mod.id}`">
+            <!-- /stock/model/:id  -->
+             <!-- '/stock/model/' + mod.title -->
+
+                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image='getImage(mod)' :fahrzeuge='mod.get_fahrz'></haupt-card>
             </router-link>
         </v-col>
     </v-row>
@@ -69,92 +78,99 @@ export default {
     data() {
         return {
 
-            models:[],
+            models: [],
+            autosVohand: [],
 
-              
-            cars: [{
-                    id: 1,
-                    title: 'Ferrarri 1',
-                    vor_number: 2,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            // cars: [{
+            //         id: 1,
+            //         title: 'Ferrarri 1',
+            //         vor_number: 2,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
 
-                },
-                {
-                    id: 2,
-                    title: 'Ferrarri 2',
-                    vor_number: 1,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 3,
-                    title: 'Ferrarri 3',
-                    vor_number: 9,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 4,
-                    title: 'Ferrarri 4',
-                    vor_number: 4,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 5,
-                    title: 'Ferrarri 5',
-                    vor_number: 1,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 6,
-                    title: 'Ferrarri 6',
-                    vor_number: 3,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 6,
-                    title: 'Ferrarri 6',
-                    vor_number: 3,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 6,
-                    title: 'Ferrarri 6',
-                    vor_number: 3,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 6,
-                    title: 'Ferrarri 6',
-                    vor_number: 3,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
-                {
-                    id: 6,
-                    title: 'Ferrarri 6',
-                    vor_number: 3,
-                    image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-                },
+            //     },
+            //     {
+            //         id: 2,
+            //         title: 'Ferrarri 2',
+            //         vor_number: 1,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 3,
+            //         title: 'Ferrarri 3',
+            //         vor_number: 9,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 4,
+            //         title: 'Ferrarri 4',
+            //         vor_number: 4,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 5,
+            //         title: 'Ferrarri 5',
+            //         vor_number: 1,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 6,
+            //         title: 'Ferrarri 6',
+            //         vor_number: 3,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 6,
+            //         title: 'Ferrarri 6',
+            //         vor_number: 3,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 6,
+            //         title: 'Ferrarri 6',
+            //         vor_number: 3,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 6,
+            //         title: 'Ferrarri 6',
+            //         vor_number: 3,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
+            //     {
+            //         id: 6,
+            //         title: 'Ferrarri 6',
+            //         vor_number: 3,
+            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            //     },
 
-            ]
+            // ]
         }
     },
-    mounted(){
+    mounted() {
         this.getModels()
+     
     },
-    methods:{
+    methods: {
+        getImage(model) {
 
-        getModels(){
-             axios
+            return axios.defaults.url + model.get_image;
+        },
+
+        getModels() {
+            axios
                 .get(axios.defaults.baseURL + "models/")
                 .then((response) => {
+                  
                     this.models = response.data;
                     console.log(this.models);
+
                 })
                 .catch((error) => {
-                    console.log(error);
+
                     this.error = true;
                 });
         },
-
+  
     }
 
 }

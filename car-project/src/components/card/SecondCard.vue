@@ -1,37 +1,40 @@
 <template>
 <div class="my-5">
-    <login-nav class="loginNav" :textData="car.title"></login-nav>
+    <login-nav class="loginNav" :textData="`Model:${auto.title}`" v-for="auto in autos" :key="auto.id"></login-nav>
     <div style="background-color: rgb(243 237 237)">
         <filter-bar></filter-bar>
 
-        <v-card v-for="auto in autos" :key="auto.id">
+        <!-- <v-card v-for="auto in autos" :key="auto.id">
             <v-img style="width:250px; height:250px;" :src="getImage(auto)"> </v-img>
             <p>{{ auto.model }}</p>
             <p>{{ auto.name }}</p>
-        </v-card>
+            <p>{{auto.model}}</p>
+        </v-card> -->
+        <div style="display: flex; flex-wrap: wrap;align-items: center;flex-direction: row;justify-content: space-around;">
 
-        <router-link to="/stock/vehicle/:id/overview">
-            <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; width: 400px" @click="clickMe">
-                <v-img :src="car.image" height="180px" cover> </v-img>
-                <div class="container">
-                    <p style="font-weight: bold; font-size: 20px">{{ car.title }}</p>
-                    <div>
-                        <v-icon color="red">mdi-currency-eur</v-icon>
-                        <v-icon color="red">mdi-tools</v-icon>
+            <router-link :to="`/stock/vehicle/${auto.vin}/overview`" v-for="auto in autos" :key="auto.id">
+                <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; width: 400px" @click="clickMe">
+                    <v-img :src="getImage(auto)" height="180px" cover> </v-img>
+                    <div class="container">
+                        <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
+                        <div>
+                            <v-icon color="red">mdi-currency-eur</v-icon>
+                            <v-icon color="red">mdi-tools</v-icon>
+                        </div>
                     </div>
-                </div>
-                <div style="margin: 10px">
-                    <p style="font-size: 16px; color: grey">
-                        Bewertung:{{ car.bewerter }}
-                    </p>
-                    <p>am:{{ car.datum }}</p>
-                </div>
-                <div style="margin: 10px">
-                    <p>Vin:{{ car.vin }}</p>
-                    <p>Besitzer:{{ car.name }}</p>
-                </div>
-            </v-card>
-        </router-link>
+                    <div style="margin: 10px">
+                        <p style="font-size: 16px; color: grey">
+                            Bewertung:{{ `${auto.name} ${auto.vorname}` }}
+                        </p>
+                        <p>am:{{ auto.date }}</p>
+                    </div>
+                    <div style="margin: 10px">
+                        <p>Vin:{{ auto.vin }}</p>
+                        <p>Besitzer:{{ auto.name }}</p>
+                    </div>
+                </v-card>
+            </router-link>
+        </div>
     </div>
 </div>
 </template>
@@ -59,24 +62,28 @@ export default {
             },
         };
     },
+    created() {
+        const model_id = this.$route.params.id
+        console.log("F8 Tributo" === "F8 Tributo");
+    },
     mounted() {
         this.getAutos();
     },
     methods: {
         getImage(auto) {
-            console.log(auto);
+
             return axios.defaults.url + auto.get_image;
         },
         clickMe() {},
         getAutos() {
             axios
-                .get(axios.defaults.baseURL + "autos/")
+                .get(axios.defaults.baseURL + `autos/${this.$route.params.id}`)
                 .then((response) => {
                     this.autos = response.data;
-                    console.log(this.autos);
+
                 })
                 .catch((error) => {
-                    console.log(error);
+
                     this.error = true;
                 });
         },

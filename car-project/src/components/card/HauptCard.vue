@@ -13,7 +13,7 @@
 
     </div>
     <p style="margin:10px; font-size:16px; color:grey">
-        Vorhandene Fahrzeuge:{{vor_number}}
+        Vorhandene Fahrzeuge:{{fahrzeuge}}
         
     </p>
 
@@ -22,13 +22,14 @@
 
 <script>
 export default {
-    props:['title','id','vor_number','image'],
-
+    props:['title','id','image','fahrzeuge'],
+    
 methods:{
     clickMe(){
        
     }
-}
+},
+
 }
 </script>
 

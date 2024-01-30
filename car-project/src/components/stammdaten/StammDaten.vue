@@ -4,13 +4,12 @@
     <login-nav class="loginNav" :textData="overview"></login-nav>
     <nav-second style="background-color:white;" class="my-15"></nav-second>
 
-
-    <v-row class="py-6">
+    <v-row class="py-6"   v-for="auto in info" :key='auto.id'    >
         <v-col cols='4'>
 
             <v-list>
                 <v-list-item>
-                    <v-img class="img" cover src='https://media.istockphoto.com/id/1401800610/de/foto/ferrari-488-rennstrecke.jpg?s=612x612&w=0&k=20&c=hMCHVCQOYf08laEHlnLf_mHaxUwH6QiHwGFVNKn-Do8='>
+                    <v-img class="img" cover :src="getImage(auto)">
 
                     </v-img>
 
@@ -20,13 +19,13 @@
 
                     <v-list-item>
 
-                        <v-text-field disabled type='input' variant='underlined' label='Hersteller' model-value='Ferrari'></v-text-field>
+                        <v-text-field disabled type='input' variant='underlined' label='Hersteller' :model-value="auto.hersteller"></v-text-field>
                     </v-list-item>
                     <v-list-item>
                         <v-row align='center'>
                             <v-col>
 
-                                <v-text-field disabled type='input' color="#dddd9b" variant="underlined" model-value="ZdNjhkjhkhkh" label="Fahrgestellnummer"></v-text-field>
+                                <v-text-field disabled type='input' color="#dddd9b" variant="underlined" :model-value="auto.vin" label="Fahrgestellnummer"></v-text-field>
                             </v-col>
                             <v-col cols='2'>
                                 <v-icon @click="alert" style="cursor:pointer;" color='rgb(203, 199, 199)'>
@@ -38,7 +37,7 @@
                     </v-list-item>
 
                     <v-list-item>
-                        <v-text-field disabled type='input' variant='underlined' label='Fahrzeugmodell' model-value='Roma'></v-text-field>
+                        <v-text-field disabled type='input' variant='underlined' label='Fahrzeugmodell' :model-value='auto.title'></v-text-field>
 
                     </v-list-item>
 
@@ -61,7 +60,7 @@
 
                     <v-list-item>
 
-                        <v-text-field type='input' color="#dddd9b" variant="underlined" model-value="Bartz" label="Kundenname"></v-text-field>
+                        <v-text-field type='input' color="#dddd9b" variant="underlined" :model-value="`${auto.name} ${auto.vorname}`" label="Kundenname"></v-text-field>
                     </v-list-item>
 
                     <v-list-item>
@@ -70,7 +69,7 @@
                             <v-col cols='4'>
                                 <div>
 
-                                    <v-text-field type='input' color="#dddd9b" variant="underlined" model-value="J54564" label="Kilometerstand:"></v-text-field>
+                                    <v-text-field type='input' color="#dddd9b" variant="underlined" :model-value="auto.kilometerstand" label="Kilometerstand:"></v-text-field>
                                 </div>
                             </v-col>
                             <v-col cols='4'>
@@ -90,7 +89,7 @@
                             <v-col cols='4'>
                                 <div>
 
-                                    <v-text-field type='input' color="#dddd9b" variant="underlined" model-value="OHNE-" label="Kennzeichen"></v-text-field>
+                                    <v-text-field type='input' color="#dddd9b" variant="underlined" :model-value="auto.kennzeichen" label="Kennzeichen"></v-text-field>
                                 </div>
                             </v-col>
                             <v-col cols='4'>
@@ -179,6 +178,13 @@ export default {
         this.getAutos()
 
     },
+      watch: {
+        $route(to, from) {
+            if (to.name === 'StammDaten') {
+                this.getAutos()
+            }
+        }
+    },
 
     methods: {
         alert() {
@@ -198,16 +204,19 @@ export default {
         // },
         getAutos() {
 
-            const response =  axios.get('http://localhost:8000/api/v1/autos/')
+             axios.get(axios.defaults.baseURL + `autos/vehicle/${this.$route.params.vin}/`)
                 .then(response => {
 
                     this.info = response.data
-                    console.log(this.info);
+
                 })
                 .catch(error => {
-                    console.log(error);
+
                     this.error = true
                 })
+        },
+        getImage(item){
+            return axios.defaults.url + item.get_image
         }
     }
 

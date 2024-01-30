@@ -42,22 +42,22 @@ const routes = [
      path:'/stock/model/:id',component:SecondCard
   },
   {
-    path:'/stock/vehicle/:id/overview',component:StammDaten
+    path:'/stock/vehicle/:vin/overview',component:StammDaten
   },
   {
-    path:'/stock/vehicle/:id/pictures',component:Fotos
+    path:'/stock/vehicle/:vin/pictures',component:Fotos
   },
   {
-    path:'/stock/vehicle/:id/bewertung',component:Bewertung
+    path:'/stock/vehicle/:vin/bewertung',component:Bewertung
   },
   {
-    path:'/stock/vehicle/:id/damages',component:Schadenliste
+    path:'/stock/vehicle/:vin/damages',component:Schadenliste
   },
   {
-    path:'/stock/vehicle/:id/status',component:Status
+    path:'/stock/vehicle/:vin/status',component:Status
   },
   {
-    path:'/stock/vehicle/:id/documents',component:Dokuments
+    path:'/stock/vehicle/:vin/documents',component:Dokuments
   },
   
   
