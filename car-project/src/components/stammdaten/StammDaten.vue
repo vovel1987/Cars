@@ -204,7 +204,7 @@ export default {
         // },
         getAutos() {
 
-             axios.get(axios.defaults.baseURL + `autos/vehicle/${this.$route.params.vin}/`)
+             axios.get(axios.defaults.baseURL + `autos/vehicle/${this.$route.params.id}/`)
                 .then(response => {
 
                     this.info = response.data

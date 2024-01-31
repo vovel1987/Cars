@@ -12,7 +12,7 @@
         </v-card> -->
         <div style="display: flex; flex-wrap: wrap;align-items: center;flex-direction: row;justify-content: space-around;">
 
-            <router-link :to="`/stock/vehicle/${auto.vin}/overview`" v-for="auto in autos" :key="auto.id">
+            <router-link :to="`/stock/vehicle/${auto.id}/overview`" v-for="auto in autos" :key="auto.id">
                 <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; width: 400px" @click="clickMe">
                     <v-img :src="getImage(auto)" height="180px" cover> </v-img>
                     <div class="container">
@@ -63,8 +63,7 @@ export default {
         };
     },
     created() {
-        const model_id = this.$route.params.id
-        console.log("F8 Tributo" === "F8 Tributo");
+       
     },
     mounted() {
         this.getAutos();

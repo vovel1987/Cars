@@ -47,7 +47,7 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-data-table :headers="headers" :items="boats" class="elevation-1" id="reifen" :sort-asc-icon="false">
+                <v-data-table :headers="headers" :items="boats" class="elevation-1" id="reifen">
                     <template #bottom></template>
                 </v-data-table>
             </v-col>
@@ -209,27 +209,27 @@ export default {
             lackFahrSeite: [{
                     title: "Fahrerseite",
                     align: "center",
-                    key: "fahrerseite",
+                    value: "fahrerseite",
                 },
                 {
                     title: "Kotflügel",
                     align: "center",
-                    key: "kot",
+                    value: "kot",
                 },
                 {
                     title: "Tür",
                     align: "center",
-                    key: "tur",
+                    value: "tur",
                 },
                 {
                     title: "Seitepanele",
                     align: "center",
-                    key: "panele",
+                    value: "panele",
                 },
                 {
                     title: "Schweller",
                     align: "center",
-                    key: "schweller",
+                    value: "schweller",
                 },
             ],
 
@@ -300,17 +300,17 @@ export default {
             bremseHeaders: [{
                     title: "Bremse",
                     align: "center",
-                    key: "bremse",
+                    value: "bremse",
                 },
                 {
                     title: "Verscließ (%)",
                     align: "center",
-                    key: "verschlies",
+                    value: "verschlies",
                 },
                 {
                     title: "Beläge(mm)",
                     align: "center",
-                    key: "belage",
+                    value: "belage",
                 },
             ],
             bremseItems: [{
@@ -338,22 +338,22 @@ export default {
             fahwerk: [{
                     title: "Fahwerk",
                     align: "center",
-                    key: "reifen",
+                    value: "reifen",
                 },
                 {
                     title: "Radlagerspiel",
                     align: "center",
-                    key: "radspiel",
+                    value: "radspiel",
                 },
                 {
                     title: "Lenkungsspiel",
                     align: "center",
-                    key: "lenspiel",
+                    value: "lenspiel",
                 },
                 {
                     title: "Spurstange",
                     align: "center",
-                    key: "stange",
+                    value: "stange",
                 },
             ],
             fahwerkItems: [{
@@ -385,42 +385,42 @@ export default {
             headers: [{
                     title: "reifen",
                     align: "start",
-                    key: "reifen",
+                    value: "reifen",
                 },
                 {
                     title: "Reifenname",
                     align: "end",
-                    key: "reifenname",
+                    value: "reifenname",
                 },
                 {
                     title: "Profiltiefe(i m a )",
                     align: "end",
-                    key: "profil",
+                    value: "profil",
                 },
                 {
                     title: "Reifendimension",
                     align: "end",
-                    key: "dimension",
+                    value: "dimension",
                 },
                 {
                     title: "Lastindex",
                     align: "end",
-                    key: "index",
+                    value: "index",
                 },
                 {
                     title: "DOT",
                     align: "end",
-                    key: "dot",
+                    value: "dot",
                 },
                 {
                     title: "TPMS",
                     align: "end",
-                    key: "tpms",
+                    value: "tpms",
                 },
                 {
                     title: "Winterreifen",
                     align: "end",
-                    key: "winter",
+                    value: "winter",
                 },
             ],
             boats: [{
