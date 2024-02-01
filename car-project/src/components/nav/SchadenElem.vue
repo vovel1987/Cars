@@ -3,7 +3,7 @@
     <v-col cols='5'>
         <v-row>
             <v-col cols='5'>
-                <v-img cover style="border-radius:10px" src='/images/inner.jpg'>
+                <v-img cover style="border-radius:10px;height:220px" :src='image'>
 
                 </v-img>
             </v-col>
@@ -44,7 +44,7 @@
         <v-row align='center'>
             <v-col cols='6' style="padding-left:20px; display:flex; align-items: center;">
                 <v-icon @click="$emit('priceInfo')" style="cursor:pointer" size='55'>mdi-tools</v-icon>
-                <span style="font-size:14px">- €</span>
+                <span style="font-size:14px">-{{preis}} €</span>
             </v-col>
             <v-col cols='3'>
 
@@ -65,7 +65,7 @@
 <script>
 export default {
     props: [
-        'text1', 'text2', 'text3', 'text4', 'text5',
+        'text1', 'text2', 'text3', 'text4', 'text5','image','preis'
     ]
 
 }

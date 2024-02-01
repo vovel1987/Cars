@@ -4,7 +4,6 @@
     <login-nav class="loginNav" :textData="schaden"></login-nav>
     <nav-second style="background-color:white;" class="my-15"></nav-second>
 
-    
     <v-card style="background-color:#f5f2f2; padding:0 10px">
 
         <v-row style="background-color:white; margin:20px; border-radius:10px;" align='center'>
@@ -57,51 +56,51 @@
                 </v-row>
             </v-col>
         </v-row>
-        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in textFolder " :key="elem.id" :text1="elem.inen" :text2="elem.sitze" :text3="elem.leder" :text4="elem.zerk" :text5="elem.dimen1">
+        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :text1="elem.autos_seite" :text2="elem.component_autos_seite" :text3="elem.element_in_component" :text4="elem.schaden_descr" :text5="elem.schaden_value" :image=getImage(elem) :preis=elem.preis>
 
         </schaden-elem>
-        <schaden-elem   @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo'   v-for="elem in textFolder " :key="elem.id" :text1="elem.fahrS" :text2="elem.tür" :text3="elem.lack" :text4="elem.abgeblatert" :text5="elem.dimen2">
+        <!-- <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in textFolder " :key="elem.id" :text1="elem.fahrS" :text2="elem.tür" :text3="elem.lack" :text4="elem.abgeblatert" :text5="elem.dimen2">
 
         </schaden-elem>
-        <schaden-elem    @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo'   v-for="elem in textFolder " :key="elem.id" :text1="elem.fahrS" :text2="elem.schweller" :text3="elem.lack" :text4="elem.abgeblatert" :text5="elem.dimen2">
+        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in textFolder " :key="elem.id" :text1="elem.fahrS" :text2="elem.schweller" :text3="elem.lack" :text4="elem.abgeblatert" :text5="elem.dimen2">
 
         </schaden-elem>
-        <schaden-elem      @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo'   v-for="elem in textFolder " :key="elem.id" :text1="elem.reifenHR" :text3="elem.felge" :text4="elem.steinschlag" :text5="elem.ja">
+        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in textFolder " :key="elem.id" :text1="elem.reifenHR" :text3="elem.felge" :text4="elem.steinschlag" :text5="elem.ja">
 
-        </schaden-elem>
+        </schaden-elem> -->
         <v-row>
             <v-col align='center'>
                 <h3>Zusatzreparatur</h3>
             </v-col>
             <v-col>
-                <v-textarea   ></v-textarea>
+                <v-textarea></v-textarea>
             </v-col>
             <v-col>
                 <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
             </v-col>
         </v-row>
-        <v-divider  class="border-opacity-100 " color="black">
+        <v-divider class="border-opacity-100 " color="black">
 
         </v-divider>
-     <v-row class="ma-5">
-        <v-col >
-            <h2>Gesamtkosten</h2>
-        </v-col>
-         <v-col>
-            
-        </v-col>
-         <v-col align='end'>
-            <h2>0 €</h2>
-        </v-col>
-     </v-row>
-     <v-row class="my-5">
-        <v-col align='end'>
-            <v-btn  class="button" color='yellow'>
-                Bepreisung abschliesen
-            </v-btn>
+        <v-row class="ma-5">
+            <v-col>
+                <h2>Gesamtkosten</h2>
+            </v-col>
+            <v-col>
 
-        </v-col>
-     </v-row>
+            </v-col>
+            <v-col align='end'>
+                <h2>0 €</h2>
+            </v-col>
+        </v-row>
+        <v-row class="my-5">
+            <v-col align='end'>
+                <v-btn class="button" color='yellow'>
+                    Bepreisung abschliesen
+                </v-btn>
+
+            </v-col>
+        </v-row>
 
     </v-card>
 
@@ -112,6 +111,7 @@
 import LoginNav from '../nav/LoginNav.vue'
 import NavSecond from '../nav/NavSecond.vue'
 import SchadenElem from '../nav/SchadenElem.vue'
+import axios from 'axios'
 
 export default {
     components: {
@@ -122,6 +122,7 @@ export default {
     data() {
         return {
             schaden: 'Schadenliste',
+            schadenListe: [],
 
             textFolder: [{
                     id: 1,
@@ -159,6 +160,9 @@ export default {
             ],
         }
     },
+    mounted() {
+        this.getData()
+    },
     methods: {
         downloadInfo() {
             alert('download Info')
@@ -166,24 +170,42 @@ export default {
         focusInfo() {
             alert('Schaden Info')
         },
-        reparInfo(){
+        reparInfo() {
             alert('Info wegen reparatur kosten')
-        }
+        },
+        getData() {
+            axios
+                .get(axios.defaults.baseURL + `bewertungs/${this.$route.params.id}`)
+                .then((response) => {
+                    this.schadenListe = response.data
+                    console.log(this.schadenListe);
+                })
 
-    }
+                .catch((error) => console.log(error))
+
+        },
+         getImage(auto) {
+
+            return axios.defaults.url + auto.get_image;
+        },
+
+    },
+
 }
 </script>
+
 <style scoped>
-.loginNav{
-     position: fixed;
+.loginNav {
+    position: fixed;
     top: 0;
     width: 100%;
     overflow: hidden;
     z-index: 2;
     background-color: white;
 }
-.button{
-     position: fixed;
+
+.button {
+    position: fixed;
     bottom: 0;
     right: 0;
     top: 90%;
