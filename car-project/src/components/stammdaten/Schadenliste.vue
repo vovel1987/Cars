@@ -56,7 +56,7 @@
                 </v-row>
             </v-col>
         </v-row>
-        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :text1="elem.autos_seite" :text2="elem.component_autos_seite" :text3="elem.element_in_component" :text4="elem.schaden_descr" :text5="elem.schaden_value" :image=getImage(elem) :preis=elem.preis>
+        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
 
         </schaden-elem>
         <!-- <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in textFolder " :key="elem.id" :text1="elem.fahrS" :text2="elem.tür" :text3="elem.lack" :text4="elem.abgeblatert" :text5="elem.dimen2">
@@ -184,7 +184,7 @@ export default {
                 .catch((error) => console.log(error))
 
         },
-         getImage(auto) {
+        getImage(auto) {
 
             return axios.defaults.url + auto.get_image;
         },

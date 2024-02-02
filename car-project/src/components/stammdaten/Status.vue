@@ -15,28 +15,25 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8" style="padding:20px 24px">
+
                 <v-row style="background-color:white; padding: 0 23px">
-                    <v-col cols="3" class="d-flex flex-row ga-5" v-for="(item, i) in items" :key="i">
-                        <div v-if="item.value === true">
+                    <v-col cols="3" class="d-flex flex-row ga-5" v-for="[key,value] in Object.entries(zubehors)" :key="key" :keyItem='key' :value='value'>
+                        <div v-if="key !== 'zusatzInfo'">
                             <span>
-                                {{ item.displayName }}
+                                {{key.charAt(0).toUpperCase() + key.slice(1)}}:
                             </span>
-                            <v-icon color="green" :icon="itemOk.icon"> </v-icon>
+                            <v-icon :color="value ? 'green' : 'red'" :icon="value ? itemOk.icon : itemOk.icon2"> </v-icon>
                         </div>
-                        <div v-else>
-                            <span>
-                                {{ item.displayName }}
-                            </span>
-                            <v-icon color="error" :icon="itemOk.icon2"> </v-icon>
-                        </div>
+
                     </v-col>
+
                 </v-row>
                 <v-row style="background-color:white; padding: 0 23px;
 ">
-                    <v-col>
+                    <v-col v-if="this.zubehors.zusatzInfo">
                         <span> Zusatzinformation: </span>
                         <span class="px-5">
-                            {{ zusatz }}
+                            {{ this.zubehors.zusatzInfo }}
                         </span>
                     </v-col>
                 </v-row>
@@ -47,7 +44,7 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-data-table :headers="headers" :items="boats" class="elevation-1" id="reifen">
+                <v-data-table :headers="headers" :items="reifens" class="elevation-1" id="reifen">
                     <template #bottom></template>
                 </v-data-table>
             </v-col>
@@ -58,14 +55,11 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-card v-if="carbonBremseStatus === true" class="d-flex align-center pa-3">
-                    <span> CarbonBremse? </span>
-                    <v-icon color="green" :icon="itemOk.icon" class="pl-4"> </v-icon>
+                <v-card  class="d-flex align-center pa-3">
+                    <span> {{this.zubehors.bremse}}? </span>
+                    <v-icon :color=" this.zubehors.bremse? 'green' : 'red'" :icon=" this.zubehors.bremse ?itemOk.icon : itemOk.icon2 " class="pl-4"> </v-icon>
                 </v-card>
-                <div v-else>
-                    <span> CarbonBremse? </span>
-                    <v-icon color="error" :icon="itemOk.icon2"> </v-icon>
-                </div>
+                
             </v-col>
             <v-spacer> </v-spacer>
         </v-row>
@@ -73,7 +67,7 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-data-table :headers="bremseHeaders" :items="bremseItems" class="elevation-1" id="reifen" :sort-asc-icon="false">
+                <v-data-table :headers="bremseHeaders" :items="reifens" class="elevation-1" id="reifen" :sort-asc-icon="false">
                     <template #bottom></template>
                 </v-data-table>
             </v-col>
@@ -84,7 +78,7 @@
         <v-row class="py-5">
             <v-spacer> </v-spacer>
             <v-col cols="8">
-                <v-data-table :headers="fahwerk" :items="fahwerkItems" class="elevation-1" id="reifen" :sort-asc-icon="false">
+                <v-data-table :headers="fahwerk" :items="reifens" class="elevation-1" id="reifen" :sort-asc-icon="false">
                     <template #bottom></template>
                 </v-data-table>
             </v-col>
@@ -186,16 +180,21 @@
 <script>
 import LoginNav from "../nav/LoginNav.vue";
 import NavSecond from "../nav/NavSecond.vue";
+import axios from 'axios'
+
 export default {
     components: {
         LoginNav,
         NavSecond,
+
     },
     data() {
         return {
             status: "Status",
             zusatz: "Penske Verbandtasche 3 Teilig",
             carbonBremseStatus: true,
+            zubehors: {},
+            reifens:[],
 
             lackmessung: [{
                 title: "Lackschichtenmessung (wird gemessen, in µm)",
@@ -240,67 +239,11 @@ export default {
                 panele: 282,
                 schweller: null,
             }, ],
-            items: [{
-                    displayName: "Zweitschlüssel:",
-                    value: false,
-                },
-                {
-                    displayName: "Paletot:",
-                    value: true,
-                },
-                {
-                    displayName: "Rad 8-fach:",
-                    value: false,
-                },
-                {
-                    displayName: "Windschott:",
-                    value: false,
-                },
-                {
-                    displayName: "FBAKS:",
-                    value: false,
-                },
-                {
-                    displayName: "Reifenfüllkit:",
-                    value: true,
-                },
-                {
-                    displayName: "Servicemappe:",
-                    value: false,
-                },
-                {
-                    displayName: "Elektronikkarte:",
-                    value: false,
-                },
-                {
-                    displayName: "Bordwerkzeuge:",
-                    value: true,
-                },
-                {
-                    displayName: "Warndreieck:",
-                    value: true,
-                },
-                {
-                    displayName: "Radiokarte:",
-                    value: false,
-                },
-                {
-                    displayName: "Ladegerät:",
-                    value: true,
-                },
-                {
-                    displayName: "Verbandskasten:",
-                    value: true,
-                },
-                {
-                    displayName: "Garantieheft:",
-                    value: false,
-                },
-            ],
+
             bremseHeaders: [{
                     title: "Bremse",
                     align: "center",
-                    value: "bremse",
+                    value: "reifen",
                 },
                 {
                     title: "Verscließ (%)",
@@ -313,27 +256,27 @@ export default {
                     value: "belage",
                 },
             ],
-            bremseItems: [{
-                    bremse: "VL",
-                    verschlies: 3,
-                    belage: 10,
-                },
-                {
-                    bremse: "VR",
-                    verschlies: 3,
-                    belage: 10,
-                },
-                {
-                    bremse: "HL",
-                    verschlies: 4,
-                    belage: 10,
-                },
-                {
-                    bremse: "HR",
-                    verschlies: 4,
-                    belage: 10,
-                },
-            ],
+            // bremseItems: [{
+            //         reifen: "VL",
+            //         verschlies: 3,
+            //         belage: 10,
+            //     },
+            //     {
+            //         reifen: "VR",
+            //         verschlies: 3,
+            //         belage: 10,
+            //     },
+            //     {
+            //         reifen: "HL",
+            //         verschlies: 4,
+            //         belage: 10,
+            //     },
+            //     {
+            //         reifen: "HR",
+            //         verschlies: 4,
+            //         belage: 10,
+            //     },
+            // ],
 
             fahwerk: [{
                     title: "Fahwerk",
@@ -383,7 +326,7 @@ export default {
             ],
 
             headers: [{
-                    title: "reifen",
+                    title: "Reifen",
                     align: "start",
                     value: "reifen",
                 },
@@ -423,49 +366,87 @@ export default {
                     value: "winter",
                 },
             ],
-            boats: [{
-                    reifen: "VL",
-                    reifenname: "Michelin Pilot Super Sport k3",
-                    profil: "5 6 6",
-                    dimension: "245 35 R20",
-                    index: 95,
-                    dot: 4020,
-                    tpms: 255,
-                    winter: "Nein",
-                },
-                {
-                    reifen: "VR",
-                    reifenname: "Michelin Pilot Super Sport k3",
-                    profil: "5 6 6",
-                    dimension: "245 35 R20",
-                    index: 95,
-                    dot: 4020,
-                    tpms: 255,
-                    winter: "Nein",
-                },
-                {
-                    reifen: "HL",
-                    reifenname: "Michelin Pilot Super Sport k3",
-                    profil: "6 6 6",
-                    dimension: "305 30 R20",
-                    index: 103,
-                    dot: 3920,
-                    tpms: 255,
-                    winter: "Nein",
-                },
-                {
-                    reifen: "HR",
-                    reifenname: "Michelin Pilot Super Sport k3",
-                    profil: "6 6 6",
-                    dimension: "305 30 R20",
-                    index: 103,
-                    dot: 3920,
-                    tpms: 255,
-                    winter: "Nein",
-                },
-            ],
+           
+            // reifen: [{
+            //         reifen: "VL",
+            //         reifenname: "Michelin Pilot Super Sport k3",
+            //         profil: "5 6 6",
+            //         dimension: "245 35 R20",
+            //         index: 95,
+            //         dot: 4020,
+            //         tpms: 255,
+            //         winter: "Nein",
+            //     },
+            //     {
+            //         reifen: "VR",
+            //         reifenname: "Michelin Pilot Super Sport k3",
+            //         profil: "5 6 6",
+            //         dimension: "245 35 R20",
+            //         index: 95,
+            //         dot: 4020,
+            //         tpms: 255,
+            //         winter: "Nein",
+            //     },
+            //     {
+            //         reifen: "HL",
+            //         reifenname: "Michelin Pilot Super Sport k3",
+            //         profil: "6 6 6",
+            //         dimension: "305 30 R20",
+            //         index: 103,
+            //         dot: 3920,
+            //         tpms: 255,
+            //         winter: "Nein",
+            //     },
+            //     {
+            //         reifen: "HR",
+            //         reifenname: "Michelin Pilot Super Sport k3",
+            //         profil: "6 6 6",
+            //         dimension: "305 30 R20",
+            //         index: 103,
+            //         dot: 3920,
+            //         tpms: 255,
+            //         winter: "Nein",
+            //     },
+            // ],
         };
     },
+    mounted() {
+        this.getData()
+        this.getReifen()
+    },
+    methods: {
+
+        getData() {
+            axios
+                .get(axios.defaults.baseURL + `status/auto/${this.$route.params.id}`)
+                .then((response) => {
+                    this.zubehors = response.data[0]
+                    console.log(this.zubehors.bremse);
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                    
+                })
+        },
+        getReifen(){
+             axios
+                .get(axios.defaults.baseURL + `status/reifen/${this.$route.params.id}`)
+                .then((response) => {
+                    this.reifens = response.data
+                    console.log(this.reifens);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
+
+
+
+        }
+
+    }
 };
 </script>
 

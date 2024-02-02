@@ -3,28 +3,28 @@
     <v-col cols='5'>
         <v-row>
             <v-col cols='5'>
-                <v-img cover style="border-radius:10px;height:220px" :src='image'>
+                <v-img cover style="border-radius:10px;height:150px" :src='image_schaden'>
 
                 </v-img>
             </v-col>
-            <v-col style=" display: flex; flex-direction: column;justify-content: space-around;align-items: flex-start;" cols='5'>
+            <v-col style=" display: flex; flex-direction: column;justify-content: center;align-items: flex-start;height:120px;margin-top:10px" cols='5'>
                 <div>
                     <span style="font-size:14px">
-                        {{text1}} |
+                        {{autos_seite}} |
                     </span>
                     <span style="font-size:14px">
-                        {{text2}} |
+                        {{component_autos_seite}} |
                     </span>
                     <span style="font-size:14px">
-                        {{text3}}
+                        {{element_in_component}}
                     </span>
                     <h3>
-                        {{text4}}
+                        {{schaden_descr}}
                     </h3>
                 </div>
 
                 <span style="font-size:14px">
-                    {{text5}}
+                    {{schaden_value}}
 
                 </span>
             </v-col>
@@ -65,7 +65,7 @@
 <script>
 export default {
     props: [
-        'text1', 'text2', 'text3', 'text4', 'text5','image','preis'
+        'autos_seite', 'component_autos_seite', 'element_in_component', 'schaden_descr', 'schaden_value','image_schaden','preis'
     ]
 
 }
