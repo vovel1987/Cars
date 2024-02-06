@@ -10,6 +10,7 @@ import Bewertung from '../components/stammdaten/Bewertung.vue'
 import Schadenliste from '../components/stammdaten/Schadenliste.vue'
 import Status from '../components/stammdaten/Status.vue'
 import Dokuments from '../components/stammdaten/Dokuments.vue'
+import AddAuto from '../components/addAuto/AddAuto.vue'
 
 
 const routes = [
@@ -58,6 +59,9 @@ const routes = [
   },
   {
     path:'/stock/vehicle/:id/documents',component:Dokuments
+  },
+  {
+    path:'/stock/addvehicle/',component:AddAuto
   },
   
   

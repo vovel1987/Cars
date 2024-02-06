@@ -108,10 +108,10 @@
                     </v-row>
                     <v-row>
                         <v-col align='center'> </v-col>
-                        <v-col align='center'>212</v-col>
-                        <v-col align='center'> 241</v-col>
-                        <v-col align='center'> 282</v-col>
-                        <v-col align='center'> -</v-col>
+                        <v-col align='center'>{{this.lackStatus.kotflügelFS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.türFS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.seitenpaneleFS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.schwellerFS}}</v-col>
                     </v-row>
                     <v-row class="grayRow">
                         <v-col align='center'> Beifahrerseite </v-col>
@@ -122,10 +122,10 @@
                     </v-row>
                     <v-row>
                         <v-col align='center'> </v-col>
-                        <v-col align='center'>193</v-col>
-                        <v-col align='center'> 209</v-col>
-                        <v-col align='center'> 306</v-col>
-                        <v-col align='center'> -</v-col>
+                        <v-col align='center'>{{this.lackStatus.kotflügelBS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.türBS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.seitenpaneleBS}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.schwellerBS}}</v-col>
                     </v-row>
                     <v-row class="grayRow">
                         <v-col align='center'> Front </v-col>
@@ -136,8 +136,8 @@
                     </v-row>
                     <v-row>
                         <v-col align='center'> </v-col>
-                        <v-col align='center'>-</v-col>
-                        <v-col align='center'> 194</v-col>
+                        <v-col align='center'>{{this.lackStatus.stosStangeF}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.motorhaubeF}}</v-col>
                         <v-col align='center'> </v-col>
                         <v-col align='center'> </v-col>
                     </v-row>
@@ -150,9 +150,9 @@
                     </v-row>
                     <v-row>
                         <v-col align='center'> </v-col>
-                        <v-col align='center'>-</v-col>
-                        <v-col align='center'> -</v-col>
-                        <v-col align='center'> -</v-col>
+                        <v-col align='center'>{{this.lackStatus.heckHeck}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.stosStangeHeck}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.spoilerHeck}}</v-col>
                         <v-col align='center'> </v-col>
                     </v-row>
                     <v-row class="grayRow">
@@ -164,8 +164,8 @@
                     </v-row>
                     <v-row class='letztColumn'>
                         <v-col align='center'> </v-col>
-                        <v-col align='center'>227</v-col>
-                        <v-col align='center'> -</v-col>
+                        <v-col align='center'>{{this.lackStatus.dach}}</v-col>
+                        <v-col align='center'> {{this.lackStatus.hardTopDach}}</v-col>
                         <v-col align='center'> </v-col>
                         <v-col align='center'> </v-col>
                     </v-row>
@@ -195,6 +195,8 @@ export default {
             carbonBremseStatus: true,
             zubehors: {},
             reifens:[],
+            lackStatus:{},
+        
 
             lackmessung: [{
                 title: "Lackschichtenmessung (wird gemessen, in µm)",
@@ -205,41 +207,6 @@ export default {
                 icon: "mdi-check",
                 icon2: "mdi-window-close",
             },
-            lackFahrSeite: [{
-                    title: "Fahrerseite",
-                    align: "center",
-                    value: "fahrerseite",
-                },
-                {
-                    title: "Kotflügel",
-                    align: "center",
-                    value: "kot",
-                },
-                {
-                    title: "Tür",
-                    align: "center",
-                    value: "tur",
-                },
-                {
-                    title: "Seitepanele",
-                    align: "center",
-                    value: "panele",
-                },
-                {
-                    title: "Schweller",
-                    align: "center",
-                    value: "schweller",
-                },
-            ],
-
-            lackFahrItems: [{
-                fahrerseite: null,
-                kot: 212,
-                tur: 241,
-                panele: 282,
-                schweller: null,
-            }, ],
-
             bremseHeaders: [{
                     title: "Bremse",
                     align: "center",
@@ -413,6 +380,7 @@ export default {
     mounted() {
         this.getData()
         this.getReifen()
+        this.getLackMessung()
     },
     methods: {
 
@@ -421,7 +389,7 @@ export default {
                 .get(axios.defaults.baseURL + `status/auto/${this.$route.params.id}`)
                 .then((response) => {
                     this.zubehors = response.data[0]
-                    console.log(this.zubehors.bremse);
+                    
 
                 })
                 .catch((error) => {
@@ -434,13 +402,26 @@ export default {
                 .get(axios.defaults.baseURL + `status/reifen/${this.$route.params.id}`)
                 .then((response) => {
                     this.reifens = response.data
-                    console.log(this.reifens);
+                    
                     
                 })
                 .catch((error) => {
                     console.log(error);
                 })
 
+        },
+
+        getLackMessung(){
+            axios
+               .get(axios.defaults.baseURL + `status/lack/${this.$route.params.id}`)
+               .then((response) =>{
+                 this.lackStatus =response.data[0]
+                 
+                    
+               })
+               .catch((error) =>{
+                console.log(error);
+               })
 
 
 

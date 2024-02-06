@@ -21,7 +21,7 @@
         <v-col>
 
             <div v-if="!this.textData" style="borderRadius:20px; margin-top: 20px;">
-                <v-text-field label="Suche" prepend-inner-icon="mdi-magnify" variant='solo'></v-text-field>
+                <v-text-field label="Suche" prepend-inner-icon="mdi-magnify" variant='solo' v-model="inputValue" @input="$emit('filter',inputValue)" ></v-text-field>
             </div>
         </v-col>
         <v-col cols='4'>
@@ -44,8 +44,11 @@
 <script>
 export default {
     props: ['textData'],
+    emits:['filter'],
+
     data() {
         return {
+            inputValue:null,
 
         }
     },
@@ -59,7 +62,8 @@ export default {
         },
         clickButton() {
             alert('button click')
-        }
+        },
+     
     }
 
 }

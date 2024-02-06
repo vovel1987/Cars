@@ -41,7 +41,7 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-row class="my-4">
+        <!-- <v-row class="my-4">
             <v-col>
 
                 <v-card style="display: flex; flex-direction: row;justify-content: space-around;align-items: center;}">
@@ -64,7 +64,7 @@
                     </v-col>
                 </v-card>
             </v-col>
-        </v-row>
+        </v-row> -->
 
     </v-container>
 </div>

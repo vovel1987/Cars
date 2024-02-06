@@ -2,7 +2,7 @@
 <div style="background-color:rgb(243 237 237);">
     <v-app-bar>
 
-        <login-nav :title="title"></login-nav>
+        <login-nav :title="title" @filter="inputChange"></login-nav>
 
         <!-- <v-row align='center' justify='center'>
             <v-col cols="1">
@@ -44,13 +44,13 @@
             <haupt-card class="mb-4" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></haupt-card>
             </router-link>
         </v-col> -->
-        <v-col v-for="mod in models" :key="mod.id" :id='mod.id' cols="12" sm="4" lg='2'>
+        <v-col v-for="mod in models" :key="mod.id" :id='mod.id'  cols="12" sm="4" lg='2'>
 
             <router-link :to="`stock/model/${mod.id}`">
-            <!-- /stock/model/:id  -->
-             <!-- '/stock/model/' + mod.title -->
+                <!-- /stock/model/:id  -->
+                <!-- '/stock/model/' + mod.title -->
 
-                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image='getImage(mod)' :fahrzeuge='mod.get_fahrz'></haupt-card>
+                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image='getImage(mod)' :fahrzeuge='mod.get_fahrz' :model='mod.model'></haupt-card>
             </router-link>
         </v-col>
     </v-row>
@@ -148,7 +148,7 @@ export default {
     },
     mounted() {
         this.getModels()
-     
+
     },
     methods: {
         getImage(model) {
@@ -156,13 +156,12 @@ export default {
             return axios.defaults.url + model.get_image;
         },
 
-        getModels() {
+        getModels(data) {
             axios
-                .get(axios.defaults.baseURL + "models/")
+                .get(axios.defaults.baseURL + "models/?search=" + data)
                 .then((response) => {
-                  
+
                     this.models = response.data;
-                    console.log(this.models);
 
                 })
                 .catch((error) => {
@@ -170,7 +169,13 @@ export default {
                     this.error = true;
                 });
         },
-  
+        inputChange(data) {
+
+            console.log(data);
+            this.getModels(data)
+
+        }
+
     }
 
 }

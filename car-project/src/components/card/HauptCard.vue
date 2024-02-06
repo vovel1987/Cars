@@ -5,7 +5,7 @@
 
     </v-img>
     <div class="container">
-        <p style="font-weight:bold; font-size:20px"> {{title}}</p>
+        <p style="font-weight:bold; font-size:20px"> {{title}}</p>  
         <div>
             <v-icon color='red'>mdi-currency-eur</v-icon>
             <v-icon color='red'>mdi-tools</v-icon>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    props:['title','id','image','fahrzeuge'],
+    props:['title','id','image','fahrzeuge','model'],
     
 methods:{
     clickMe(){
