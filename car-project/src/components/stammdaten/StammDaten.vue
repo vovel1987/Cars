@@ -4,12 +4,18 @@
     <login-nav class="loginNav" :textData="overview"></login-nav>
     <nav-second style="background-color:white;" class="my-15"></nav-second>
 
-    <v-row class="py-6"   v-for="auto in info" :key='auto.id'    >
+    <v-row class="py-6" v-for="auto in info" :key='auto.id'>
         <v-col cols='4'>
 
             <v-list>
-                <v-list-item>
+                <v-list-item v-if="auto.get_image != ''">
                     <v-img class="img" cover :src="getImage(auto)">
+
+                    </v-img>
+
+                </v-list-item>
+                <v-list-item v-else>
+                    <v-img class="img" cover src='/images/tributo.jpg'>
 
                     </v-img>
 
@@ -178,7 +184,7 @@ export default {
         this.getAutos()
 
     },
-      watch: {
+    watch: {
         $route(to, from) {
             if (to.name === 'StammDaten') {
                 this.getAutos()
@@ -204,10 +210,11 @@ export default {
         // },
         getAutos() {
 
-             axios.get(axios.defaults.baseURL + `autos/vehicle/${this.$route.params.id}/`)
+            axios.get(axios.defaults.baseURL + `autos/vehicle/${this.$route.params.id}/`)
                 .then(response => {
 
                     this.info = response.data
+                    console.log(this.info);
 
                 })
                 .catch(error => {
@@ -215,7 +222,7 @@ export default {
                     this.error = true
                 })
         },
-        getImage(item){
+        getImage(item) {
             return axios.defaults.url + item.get_image
         }
     }
