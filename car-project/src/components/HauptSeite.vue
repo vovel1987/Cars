@@ -2,7 +2,7 @@
 <div style="background-color:rgb(243 237 237);">
     <v-app-bar>
 
-        <login-nav :title="title" @filter="inputChange"></login-nav>
+        <login-nav @filter="inputChange" @get="getData"></login-nav>
 
         <!-- <v-row align='center' justify='center'>
             <v-col cols="1">
@@ -44,13 +44,13 @@
             <haupt-card class="mb-4" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></haupt-card>
             </router-link>
         </v-col> -->
-        <v-col v-for="mod in models" :key="mod.id" :id='mod.id'  cols="12" sm="4" lg='2'>
+        <v-col v-for="mod in models" :key="mod.id" :id='mod.id' cols="12" sm="4" lg='2' class="px-2">
 
-            <router-link :to="`stock/model/${mod.id}`">
+            <router-link :to="`stock/model/${mod.id}`" style="text-decoration: none;">
                 <!-- /stock/model/:id  -->
                 <!-- '/stock/model/' + mod.title -->
 
-                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image='getImage(mod)' :fahrzeuge='mod.get_fahrz' :model='mod.model'></haupt-card>
+                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image=' mod.get_image ? getImage(mod) : link' :fahrzeuge='mod.get_fahrz' :model='mod.model'></haupt-card>
             </router-link>
         </v-col>
     </v-row>
@@ -80,79 +80,18 @@ export default {
 
             models: [],
             autosVohand: [],
+            link: '/images/tributo.jpg',
 
-            // cars: [{
-            //         id: 1,
-            //         title: 'Ferrarri 1',
-            //         vor_number: 2,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-
-            //     },
-            //     {
-            //         id: 2,
-            //         title: 'Ferrarri 2',
-            //         vor_number: 1,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 3,
-            //         title: 'Ferrarri 3',
-            //         vor_number: 9,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 4,
-            //         title: 'Ferrarri 4',
-            //         vor_number: 4,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 5,
-            //         title: 'Ferrarri 5',
-            //         vor_number: 1,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 6,
-            //         title: 'Ferrarri 6',
-            //         vor_number: 3,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 6,
-            //         title: 'Ferrarri 6',
-            //         vor_number: 3,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 6,
-            //         title: 'Ferrarri 6',
-            //         vor_number: 3,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 6,
-            //         title: 'Ferrarri 6',
-            //         vor_number: 3,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-            //     {
-            //         id: 6,
-            //         title: 'Ferrarri 6',
-            //         vor_number: 3,
-            //         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-            //     },
-
-            // ]
         }
     },
     mounted() {
         this.getModels()
+        this.getData()
 
     },
     methods: {
         getImage(model) {
-
+            console.log(model.get_image);
             return axios.defaults.url + model.get_image;
         },
 
@@ -168,6 +107,21 @@ export default {
 
                     this.error = true;
                 });
+        },
+        getData() {
+
+            axios
+                .get(axios.defaults.baseURL + "models/")
+                .then((response) => {
+
+                    this.models = response.data;
+
+                })
+                .catch((error) => {
+
+                    this.error = true;
+                });
+
         },
         inputChange(data) {
 

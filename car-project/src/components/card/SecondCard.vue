@@ -1,6 +1,7 @@
 <template>
 <div class="my-5">
-    <login-nav class="loginNav" :textData="`Model:${auto.title}`" v-for="auto in autos" :key="auto.id"></login-nav>
+    <login-nav class="loginNav" :textData=" autos.length == 0 ? 'Keine Auto'  : `Model:${autos[0].title}` ">
+    </login-nav>
     <div style="background-color: rgb(243 237 237)">
         <filter-bar></filter-bar>
 
@@ -10,11 +11,17 @@
             <p>{{ auto.name }}</p>
             <p>{{auto.model}}</p>
         </v-card> -->
-        <div style="display: flex; flex-wrap: wrap;align-items: center;flex-direction: row;justify-content: space-around;">
+        <!-- <div style="display: flex; flex-wrap: wrap;align-items: center;flex-direction: row;justify-content: space-around;">
+            <router-link :to="`/stock/vehicle/${auto.id}/overview`" v-for="auto in autos" :key="auto.id" style="text-decoration:none">
+                <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; width: 250px" @click="clickMe">
 
-            <router-link :to="`/stock/vehicle/${auto.id}/overview`" v-for="auto in autos" :key="auto.id">
-                <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; width: 400px" @click="clickMe">
-                    <v-img :src="getImage(auto)" height="180px" cover> </v-img>
+                    <div v-if="!auto.get_image">
+                        <v-img src='/images/tributo.jpg' height="180px" cover> </v-img>
+                    </div>
+                    <div v-else>
+                        <v-img :src="getImage(auto)" height="180px" cover> </v-img>
+                    </div>
+
                     <div class="container">
                         <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
                         <div>
@@ -23,18 +30,56 @@
                         </div>
                     </div>
                     <div style="margin: 10px">
-                        <p style="font-size: 16px; color: grey">
+                        <p class="text">
                             Bewertung:{{ `${auto.name} ${auto.vorname}` }}
                         </p>
-                        <p>am:{{ auto.date }}</p>
+                        <p class="text" >am:{{ auto.date }}</p>
                     </div>
                     <div style="margin: 10px">
-                        <p>Vin:{{ auto.vin }}</p>
-                        <p>Besitzer:{{ auto.name }}</p>
+                        <p class="text" >Vin:{{ auto.vin }}</p>
+                        <p class="text" >Besitzer:{{ auto.name }}</p>
                     </div>
                 </v-card>
             </router-link>
-        </div>
+        </div> -->
+
+        <v-container >
+            <v-row   >
+                <v-col  v-for="auto in autos" :key="auto.id"  cols="12" sm="4" lg='3'   >
+                    <router-link :to="`/stock/vehicle/${auto.id}/overview`"  style="text-decoration:none">
+                        <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; " @click="clickMe">
+
+                            <div v-if="!auto.get_image">
+                                <v-img src='/images/tributo.jpg' height="180px" cover> </v-img>
+                            </div>
+                            <div v-else>
+                                <v-img :src="getImage(auto)" height="180px" cover> </v-img>
+                            </div>
+
+                            <div class="container">
+                                <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
+                                <div>
+                                    <v-icon color="red">mdi-currency-eur</v-icon>
+                                    <v-icon color="red">mdi-tools</v-icon>
+                                </div>
+                            </div>
+                            <div style="margin: 10px">
+                                <p class="text">
+                                    Bewertung:{{ `${auto.name} ${auto.vorname}` }}
+                                </p>
+                                <p class="text">am:{{ auto.date }}</p>
+                            </div>
+                            <div style="margin: 10px">
+                                <p class="text">Vin:{{ auto.vin }}</p>
+                                <p class="text">Besitzer:{{ auto.name }}</p>
+                            </div>
+                        </v-card>
+                    </router-link>
+
+                </v-col>
+            </v-row>
+        </v-container>
+
     </div>
 </div>
 </template>
@@ -52,18 +97,11 @@ export default {
     data() {
         return {
             autos: [],
-            car: {
-                title: "Ferrari",
-                image: "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
-                bewerter: "Klaus",
-                datum: Date.now().toString(),
-                vin: "464646klkjljlk",
-                name: "Svem Fischer",
-            },
+
         };
     },
     created() {
-       
+
     },
     mounted() {
         this.getAutos();
@@ -91,6 +129,11 @@ export default {
 </script>
 
 <style scoped>
+.text {
+    font-size: 14px;
+    color: rgb(53, 53, 53)
+}
+
 .container {
     display: flex;
     justify-content: space-between;

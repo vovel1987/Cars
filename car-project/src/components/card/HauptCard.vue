@@ -1,12 +1,12 @@
 <template>
-<v-card class="mx-auto" max-width="250px" height='280px' style="border-radius:20px" @click="clickMe">
-
+<v-card class="mx-auto" max-width="250px" height='280px' style="border-radius:20px;" @click="clickMe">
+    
     <v-img :src="this.image" height='180px' cover>
 
     </v-img>
     <div class="container">
-        <p style="font-weight:bold; font-size:20px"> {{title}}</p>  
-        <div>
+        <p style="font-weight:bold; font-size:20px"> {{title.charAt(0).toUpperCase() + title.slice(1)}}</p>
+        <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 60px;">
             <v-icon color='red'>mdi-currency-eur</v-icon>
             <v-icon color='red'>mdi-tools</v-icon>
         </div>
@@ -14,7 +14,7 @@
     </div>
     <p style="margin:10px; font-size:16px; color:grey">
         Vorhandene Fahrzeuge:{{fahrzeuge}}
-        
+
     </p>
 
 </v-card>
@@ -22,13 +22,13 @@
 
 <script>
 export default {
-    props:['title','id','image','fahrzeuge','model'],
-    
-methods:{
-    clickMe(){
-       
-    }
-},
+    props: ['title', 'id', 'image', 'fahrzeuge', 'model'],
+
+    methods: {
+        clickMe() {
+
+        }
+    },
 
 }
 </script>
