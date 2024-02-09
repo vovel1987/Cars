@@ -3,7 +3,7 @@
     <login-nav class="loginNav" :textData=" autos.length == 0 ? 'Keine Auto'  : `Model:${autos[0].title}` ">
     </login-nav>
     <div style="background-color: rgb(243 237 237)">
-        <filter-bar></filter-bar>
+        <filter-bar ></filter-bar>
 
         <!-- <v-card v-for="auto in autos" :key="auto.id">
             <v-img style="width:250px; height:250px;" :src="getImage(auto)"> </v-img>
@@ -43,11 +43,13 @@
             </router-link>
         </div> -->
 
-        <v-container >
-            <v-row   >
-                <v-col  v-for="auto in autos" :key="auto.id"  cols="12" sm="4" lg='3'   >
-                    <router-link :to="`/stock/vehicle/${auto.id}/overview`"  style="text-decoration:none">
-                        <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; " @click="clickMe">
+        <div style="margin:10px;">
+            <v-row>
+                <v-col v-for="auto in autos" :key="auto.id" cols="12" sm="4" lg='3'>
+                    <!-- <router-link :to="`/stock/vehicle/${auto.id}/overview`" style="text-decoration:none"> -->
+                    <v-card class="mx-auto" height="350px" style="border-radius: 20px; margin-top: 20px; " @click="clickMe">
+
+                        <router-link :to="`/stock/vehicle/${auto.id}/overview`" style="text-decoration:none">
 
                             <div v-if="!auto.get_image">
                                 <v-img src='/images/tributo.jpg' height="180px" cover> </v-img>
@@ -55,30 +57,31 @@
                             <div v-else>
                                 <v-img :src="getImage(auto)" height="180px" cover> </v-img>
                             </div>
+                        </router-link>
 
-                            <div class="container">
-                                <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
-                                <div>
-                                    <v-icon color="red">mdi-currency-eur</v-icon>
-                                    <v-icon color="red">mdi-tools</v-icon>
-                                </div>
+                        <div class="container">
+                            <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
+                            <div>
+                                <v-icon @click="click" color="red">mdi-currency-eur</v-icon>
+                                <v-icon color="red">mdi-tools</v-icon>
                             </div>
-                            <div style="margin: 10px">
-                                <p class="text">
-                                    Bewertung:{{ `${auto.name} ${auto.vorname}` }}
-                                </p>
-                                <p class="text">am:{{ auto.date }}</p>
-                            </div>
-                            <div style="margin: 10px">
-                                <p class="text">Vin:{{ auto.vin }}</p>
-                                <p class="text">Besitzer:{{ auto.name }}</p>
-                            </div>
-                        </v-card>
-                    </router-link>
+                        </div>
+                        <div style="margin: 10px">
+                            <p class="text">
+                                Bewertung:{{ `${auto.name} ${auto.vorname}` }}
+                            </p>
+                            <p class="text">am:{{ auto.date }}</p>
+                        </div>
+                        <div style="margin: 10px">
+                            <p class="text">Vin:{{ auto.vin }}</p>
+                            <p class="text">Besitzer:{{ auto.name }}</p>
+                        </div>
+                    </v-card>
+                    <!-- </router-link> -->
 
                 </v-col>
             </v-row>
-        </v-container>
+        </div>
 
     </div>
 </div>
@@ -97,6 +100,7 @@ export default {
     data() {
         return {
             autos: [],
+            link: this.$route.params.id
 
         };
     },
@@ -106,12 +110,46 @@ export default {
     mounted() {
         this.getAutos();
     },
+
+    computed: {
+
+        isMobile() {
+            switch (this.$vuetify.display.name) {
+                case "xs":
+                    return true;
+                case "sm":
+                    return true;
+                case "md":
+                    return true;
+                case "lg":
+                    return false;
+                case "xl":
+                    return false;
+                case "xxl":
+                    return false;
+                default:
+                    return false;
+            }
+        },
+        padding() {
+            switch (this.$vuetify.display.name) {
+
+                case "sm":
+                    return true;
+
+            }
+
+        }
+
+    },
     methods: {
         getImage(auto) {
 
             return axios.defaults.url + auto.get_image;
         },
-        clickMe() {},
+        clickMe() {
+            console.log(this.link,this.padding);
+        },
         getAutos() {
             axios
                 .get(axios.defaults.baseURL + `autos/${this.$route.params.id}`)
@@ -151,5 +189,15 @@ export default {
     overflow: hidden;
     z-index: 2;
     background-color: white;
+}
+
+.filterSm {
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.filterSm2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 </style>

@@ -1,10 +1,9 @@
 <template>
-<div style="background-color:rgb(243 237 237);">
-    <v-app-bar>
+<div style="background-color:rgb(243 237 237); padding:10px;">
 
-        <login-nav @filter="inputChange" @get="getData"></login-nav>
+    <login-nav @filter="inputChange" @get="getData" style="background-color:white"></login-nav>
 
-        <!-- <v-row align='center' justify='center'>
+    <!-- <v-row align='center' justify='center'>
             <v-col cols="1">
                 <img style="width:65px" src="/images/EberleinLogo2.png">
             </v-col>
@@ -25,13 +24,11 @@
             </v-col>
 
         </v-row> -->
-    </v-app-bar>
-    <div style="">
 
-        <filter-bar>
+    <filter-bar>
 
-        </filter-bar>
-    </div>
+    </filter-bar>
+
     <!-- <div>
 
     <card v-for="car in cars" :key="car.id" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></card>
@@ -44,7 +41,7 @@
             <haupt-card class="mb-4" :title="car.title" :id="car.id" :vor_number="car.vor_number" :image="car.image"></haupt-card>
             </router-link>
         </v-col> -->
-        <v-col v-for="mod in models" :key="mod.id" :id='mod.id' cols="12" sm="4" lg='2' class="px-2">
+        <v-col v-for="mod in models" :key="mod.id" :id='mod.id' cols="12" sm="4" lg='2' md='3'  class="px-2">
 
             <router-link :to="`stock/model/${mod.id}`" style="text-decoration: none;">
                 <!-- /stock/model/:id  -->
