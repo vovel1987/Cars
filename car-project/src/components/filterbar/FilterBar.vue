@@ -1,7 +1,7 @@
 <template>
 <v-container style="marginTop:55px; marginBottom:10px">
 
-    <v-row v-if="sizeXs" align='center'>
+    <v-row v-if="sizeXs" align='center' style="padding-right:10px;">
         <v-col cols='8'>
 
             <!-- <v-text-field  style="width:190px font-size:14px" label="Neu Bestandsaufnahme"

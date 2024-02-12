@@ -3,9 +3,116 @@
     <login-nav class="loginNav" :textData="fotos"></login-nav>
     <nav-second class="my-15" style="background-color: white"></nav-second>
 
-    <div class="pa-6">
+    <div v-if="sizeXs">
+
         <v-row>
-            <v-col cols="6">
+            <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(2)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(3)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(4)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(5)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(6)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(7)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+                 <v-col class="px-5" cols='12'>
+
+                <div v-if="this.images.length !==0">
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" :src="getImage(8)">
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+                <div v-else>
+                    <v-img cover style="height: 230px; border-radius: 20px; position: relative" src='/images/tributo.jpg'>
+                        <download-elem></download-elem>
+                    </v-img>
+                </div>
+
+            </v-col>
+     
+
+        </v-row>
+
+    </div>
+
+    <div v-else class="pa-4">
+        <v-row>
+            <v-col class="pa-1" cols="6">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(2)">
                         <download-elem></download-elem>
@@ -17,7 +124,7 @@
                     </v-img>
                 </div>
             </v-col>
-            <v-col cols="6">
+            <v-col class="pa-1" cols="6">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(3)">
                         <download-elem></download-elem>
@@ -31,7 +138,7 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="4">
+            <v-col class="pa-1" cols="4">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(4)">
                         <download-elem></download-elem>
@@ -44,7 +151,7 @@
                 </div>
 
             </v-col>
-            <v-col cols="4">
+            <v-col class="pa-1" cols="4">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(5)">
                         <download-elem></download-elem>
@@ -56,7 +163,7 @@
                     </v-img>
                 </div>
             </v-col>
-            <v-col cols="4">
+            <v-col class="pa-1" cols="4">
                 <div v-if="this.images.length !==0  ">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(6)">
                         <download-elem></download-elem>
@@ -70,7 +177,7 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="6">
+            <v-col class="pa-1" cols="6">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(7)">
                         <download-elem></download-elem>
@@ -82,7 +189,7 @@
                     </v-img>
                 </div>
             </v-col>
-            <v-col cols="6">
+            <v-col class="pa-1" cols="6">
                 <div v-if="this.images.length !==0">
                     <v-img cover style="height: 350px; border-radius: 20px; position: relative" :src="getImage(8)">
                         <download-elem></download-elem>
@@ -121,6 +228,37 @@ export default {
         };
     },
     created() {},
+    computed: {
+
+        isMobile() {
+            switch (this.$vuetify.display.name) {
+                case "xs":
+                    return true;
+                case "sm":
+                    return true;
+                case "md":
+                    return true;
+                case "lg":
+                    return false;
+                case "xl":
+                    return false;
+                case "xxl":
+                    return false;
+                default:
+                    return false;
+            }
+        },
+
+        sizeXs() {
+            switch (this.$vuetify.display.name) {
+
+                case "xs":
+                    return true;
+
+            }
+
+        },
+    },
     mounted() {
         this.getData();
     },

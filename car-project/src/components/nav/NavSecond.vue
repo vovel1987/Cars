@@ -1,10 +1,19 @@
 <template>
 <div>
 
-    <v-tabs class="tabs" centered grow height="60px" v-model="activeTab">
+    <v-slide-group v-if="sizeXs" show-arrows>
+        <v-slide-group-item>
+            <v-tabs class="tabs" centered grow height="60px" v-model="activeTab">
+                <v-tab v-for="tab in tabs" :key="tab.id" :name='tab.name' :to="tab.route" exact>{{ tab.name }}</v-tab>
+            </v-tabs>
+
+        </v-slide-group-item>
+    </v-slide-group>
+
+    <v-tabs v-else class="tabs" centered grow height="60px" v-model="activeTab">
         <v-tab v-for="tab in tabs" :key="tab.id" :name='tab.name' :to="tab.route" exact>{{ tab.name }}</v-tab>
     </v-tabs>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
 
     <!-- <v-tabs v-model="activeTab" align-items='center' grow slider-color="yellow">
         <router-link to="/stock/vehicle/:id/overview">
@@ -39,7 +48,7 @@
 
 <script>
 export default {
-     props:[],
+    props: [],
     data() {
         return {
             activeTab: '/stock/vehicle/:id/overview',
@@ -47,7 +56,7 @@ export default {
                     id: 1,
                     name: "Stammdaten",
                     route: '/stock/vehicle/' + this.$route.params.id + '/overview',
-                    title:'Ferrari'
+                    title: 'Ferrari'
                 },
                 {
                     id: 2,
@@ -62,22 +71,62 @@ export default {
                 {
                     id: 4,
                     name: "SCHADENLISTE",
-                    route: '/stock/vehicle/'  + this.$route.params.id +'/damages',
+                    route: '/stock/vehicle/' + this.$route.params.id + '/damages',
                 },
                 {
                     id: 5,
-                    name:"STATUS" ,
-                    route: '/stock/vehicle/' + this.$route.params.id +'/status',
+                    name: "STATUS",
+                    route: '/stock/vehicle/' + this.$route.params.id + '/status',
                 },
                 {
                     id: 6,
                     name: "DOKUMENTE",
-                    route: '/stock/vehicle/' + this.$route.params.id +'/documents',
+                    route: '/stock/vehicle/' + this.$route.params.id + '/documents',
                 },
 
             ]
         }
-    }
+    },
+
+    computed: {
+
+        isMobile() {
+            switch (this.$vuetify.display.name) {
+                case "xs":
+                    return true;
+                case "sm":
+                    return true;
+                case "md":
+                    return true;
+                case "lg":
+                    return false;
+                case "xl":
+                    return false;
+                case "xxl":
+                    return false;
+                default:
+                    return false;
+            }
+        },
+
+        sizeSm() {
+            switch (this.$vuetify.display.name) {
+
+                case "sm":
+                    return true;
+
+            }
+        },
+        sizeXs() {
+            switch (this.$vuetify.display.name) {
+
+                case "xs":
+                    return true;
+
+            }
+        },
+
+    },
 
 }
 </script>

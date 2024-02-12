@@ -1,23 +1,23 @@
 <template>
 <div class="my-5">
     <login-nav class="loginNav" :textData="status"></login-nav>
-    <nav-second class="my-15" style="background-color:white;"></nav-second>
+    <nav-second class="my-15" style="background-color:white;height:147px;"></nav-second>
 
     <v-container>
         <v-row>
             <v-spacer> </v-spacer>
-            <v-col cols="8">
-                <v-textarea style="background-color:white;" label="Fahrzeugkommentar(wird automatisch gespeichert)"></v-textarea>
+            <v-col cols="11">
+                <v-textarea clearable clear-icon="mdi-close-circle" style="background-color:white;h" label="Fahrzeugkommentar(wird automatisch gespeichert)"></v-textarea>
             </v-col>
             <v-spacer> </v-spacer>
         </v-row>
         <v-divider> </v-divider>
-        <v-row class="py-5">
+        <v-row class="my-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8" style="padding:20px 24px">
+            <v-col cols="11" style="">
 
-                <v-row style="background-color:white; padding: 0 23px">
-                    <v-col cols="3" class="d-flex flex-row ga-5" v-for="[key,value] in Object.entries(zubehors)" :key="key" :keyItem='key' :value='value'>
+                <v-row style="background-color:white; margin: 0 auto; ">
+                    <v-col cols="12" md='3' sm='4' v-for="[key,value] in Object.entries(zubehors)" :key="key" :keyItem='key' :value='value'>
                         <div v-if="key !== 'zusatzInfo'">
                             <span>
                                 {{key.charAt(0).toUpperCase() + key.slice(1)}}:
@@ -28,7 +28,7 @@
                     </v-col>
 
                 </v-row>
-                <v-row style="background-color:white; padding: 0 23px;
+                <v-row style="background-color:white;  margin:0 auto;
 ">
                     <v-col v-if="this.zubehors.zusatzInfo">
                         <span> Zusatzinformation: </span>
@@ -43,7 +43,7 @@
         <v-divider> </v-divider>
         <v-row class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
+            <v-col cols="11">
                 <v-data-table :headers="headers" :items="reifens" class="elevation-1" id="reifen">
                     <template #bottom></template>
                 </v-data-table>
@@ -54,19 +54,19 @@
 
         <v-row class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
-                <v-card  class="d-flex align-center pa-3">
+            <v-col cols="11">
+                <v-card class="d-flex align-center pa-3">
                     <span> {{this.zubehors.bremse}}? </span>
                     <v-icon :color=" this.zubehors.bremse? 'green' : 'red'" :icon=" this.zubehors.bremse ?itemOk.icon : itemOk.icon2 " class="pl-4"> </v-icon>
                 </v-card>
-                
+
             </v-col>
             <v-spacer> </v-spacer>
         </v-row>
         <v-divider> </v-divider>
         <v-row class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
+            <v-col cols="11">
                 <v-data-table :headers="bremseHeaders" :items="reifens" class="elevation-1" id="reifen" :sort-asc-icon="false">
                     <template #bottom></template>
                 </v-data-table>
@@ -77,7 +77,7 @@
 
         <v-row class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
+            <v-col cols="11">
                 <v-data-table :headers="fahwerk" :items="reifens" class="elevation-1" id="reifen" :sort-asc-icon="false">
                     <template #bottom></template>
                 </v-data-table>
@@ -85,9 +85,249 @@
             <v-spacer> </v-spacer>
         </v-row>
         <v-divider> </v-divider>
-        <v-row class="py-5">
+
+        <v-row v-if="sizeXs" class="py-5">
             <v-spacer> </v-spacer>
-            <v-col cols="8">
+            <v-col cols="11">
+                <v-container class="pa-3">
+                    <v-row style="background-color: yellow">
+                        <v-col>
+                            Lackschichtenmessung (wird gemessen, in µm)
+
+                        </v-col>
+                    </v-row>
+                    <v-row style="background-color: white">
+                        <v-col align='center'> Fahrerseite </v-col>
+                    </v-row>
+                    <v-row class="grayRow">
+                        <v-col>
+
+                            <v-row>
+                                <v-col>
+                                    Kotflügel
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.kotflügelFS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Tür
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.türFS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Seitenpanele
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.seitenpaneleFS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Schweller
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.schwellerFS}}
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
+
+                    
+
+                    <v-row style="background-color: white">
+                        <v-col align='center'> Beifahrerseite </v-col>
+                    </v-row>
+                    <v-row class="grayRow">
+                        <v-col>
+
+                            <v-row>
+                                <v-col>
+                                    Kotflügel
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.kotflügelBS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Tür
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.türBS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Seitenpanele
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.seitenpaneleBS}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Schweller
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.schwellerBS}}
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
+
+                   
+
+                    <v-row style="background-color: white">
+                        <v-col align='center'>Front </v-col>
+                    </v-row>
+                    <v-row class="grayRow">
+                        <v-col>
+
+                            <v-row>
+                                <v-col>
+                                    Stoßstange
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.stosStangeF}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Motorhaube
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.motorhaubeF}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+
+                                </v-col>
+                                <v-col>
+
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+
+                                </v-col>
+                                <v-col>
+
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
+                   
+
+                    <v-row style="background-color: white">
+                        <v-col align='center'>Heck </v-col>
+                    </v-row>
+                    <v-row class="grayRow">
+                        <v-col>
+
+                            <v-row>
+                                <v-col>
+                                    Heck
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.heckHeck}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Stoßstange
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.stosStangeHeck}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Spoiler
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.spoilerHeck}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+
+                                </v-col>
+                                <v-col>
+
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
+
+                  
+
+                    <v-row style="background-color: white">
+                        <v-col align='center'>Dach </v-col>
+                    </v-row>
+                    <v-row class="grayRow">
+                        <v-col>
+
+                            <v-row>
+                                <v-col>
+                                    Dach
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.dach}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Hardtop
+                                </v-col>
+                                <v-col>
+                                    {{this.lackStatus.hardTopDach}}
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+
+                                </v-col>
+                                <v-col>
+
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+
+                                </v-col>
+                                <v-col>
+
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
+
+                  
+
+                </v-container>
+            </v-col>
+            <v-spacer> </v-spacer>
+        </v-row>
+
+        <v-row  v-else class="py-5">
+            <v-spacer> </v-spacer>
+            <v-col cols="11">
                 <v-container class="pa-3">
                     <v-row style="background-color: yellow">
                         <v-col>
@@ -194,9 +434,8 @@ export default {
             zusatz: "Penske Verbandtasche 3 Teilig",
             carbonBremseStatus: true,
             zubehors: {},
-            reifens:[],
-            lackStatus:{},
-        
+            reifens: [],
+            lackStatus: {},
 
             lackmessung: [{
                 title: "Lackschichtenmessung (wird gemessen, in µm)",
@@ -333,7 +572,7 @@ export default {
                     value: "winter",
                 },
             ],
-           
+
             // reifen: [{
             //         reifen: "VL",
             //         reifenname: "Michelin Pilot Super Sport k3",
@@ -382,6 +621,36 @@ export default {
         this.getReifen()
         this.getLackMessung()
     },
+    computed:{
+            isMobile() {
+            switch (this.$vuetify.display.name) {
+                case "xs":
+                    return true;
+                case "sm":
+                    return true;
+                case "md":
+                    return true;
+                case "lg":
+                    return false;
+                case "xl":
+                    return false;
+                case "xxl":
+                    return false;
+                default:
+                    return false;
+            }
+        },
+
+        sizeXs() {
+            switch (this.$vuetify.display.name) {
+
+                case "xs":
+                    return true;
+
+            }
+        },
+    },
+
     methods: {
 
         getData() {
@@ -389,21 +658,19 @@ export default {
                 .get(axios.defaults.baseURL + `status/auto/${this.$route.params.id}`)
                 .then((response) => {
                     this.zubehors = response.data[0]
-                    
 
                 })
                 .catch((error) => {
                     console.log(error);
-                    
+
                 })
         },
-        getReifen(){
-             axios
+        getReifen() {
+            axios
                 .get(axios.defaults.baseURL + `status/reifen/${this.$route.params.id}`)
                 .then((response) => {
                     this.reifens = response.data
-                    
-                    
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -411,19 +678,16 @@ export default {
 
         },
 
-        getLackMessung(){
+        getLackMessung() {
             axios
-               .get(axios.defaults.baseURL + `status/lack/${this.$route.params.id}`)
-               .then((response) =>{
-                 this.lackStatus =response.data[0]
-                 
-                    
-               })
-               .catch((error) =>{
-                console.log(error);
-               })
+                .get(axios.defaults.baseURL + `status/lack/${this.$route.params.id}`)
+                .then((response) => {
+                    this.lackStatus = response.data[0]
 
-
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
 
         }
 

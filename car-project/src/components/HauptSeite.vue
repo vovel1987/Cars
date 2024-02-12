@@ -1,5 +1,5 @@
 <template>
-<div style="background-color:rgb(243 237 237); padding:10px;">
+<div style="background-color:rgb(243 237 237); ">
 
     <login-nav @filter="inputChange" @get="getData" style="background-color:white"></login-nav>
 

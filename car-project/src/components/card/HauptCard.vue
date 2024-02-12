@@ -1,5 +1,5 @@
 <template>
-<v-card class="mx-auto" max-width="250px" height='280px' style="border-radius:20px;" @click="clickMe">
+<v-card class="mx-auto"  height='280px' style="border-radius:20px;" @click="clickMe">
     
     <v-img :src="this.image" height='180px' cover>
 
