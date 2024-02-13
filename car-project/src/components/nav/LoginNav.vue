@@ -142,7 +142,7 @@
             </router-link>
 
         </v-col>
-        <v-col cols='12' lg='3' md='3' :style="{'padding-left':padding  }">
+        <v-col cols='12' lg='3' md='4' :style="{'padding-left':padding  }">
 
             <h1 v-if="!this.textData">
                 Modellübersicht
@@ -152,7 +152,7 @@
             </h1>
 
         </v-col>
-        <v-col align='center' cols='12' lg='5' md='4'>
+        <v-col align='center' cols='12' lg='5' md='3'>
 
             <div v-if="!this.textData" style="borderRadius:20px;">
                 <v-text-field label="Suche" prepend-inner-icon="mdi-magnify" hide-details="auto" v-model="inputValue" @input="$emit('filter',inputValue)">

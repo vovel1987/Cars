@@ -6,8 +6,8 @@
     </v-img>
     <div class="container">
         <p style="font-weight:bold; font-size:20px"> {{title.charAt(0).toUpperCase() + title.slice(1)}}</p>
-        <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 60px;">
-            <v-icon color='red'>mdi-currency-eur</v-icon>
+        <div  style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 60px;">
+            <v-icon  color='red'>mdi-currency-eur</v-icon>
             <v-icon color='red'>mdi-tools</v-icon>
         </div>
 
@@ -21,12 +21,46 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     props: ['title', 'id', 'image', 'fahrzeuge', 'model'],
+    data(){
+        return{
+          bewertungs:[],
+          auto:[],
+        }
+    },
+
+    mounted(){
+      
+       this.getBewrtung()
+    },
 
     methods: {
         clickMe() {
 
+        },
+         getBewrtung(id) {
+            axios
+                .get(axios.defaults.baseURL + `bewertungs/`)
+                .then((response) => {
+                    this.bewertungs = response.data;
+                    
+                    
+
+                })
+                .catch((error) => {
+
+                    this.error = true;
+                });
+
+        },
+        findAuto(id) {
+        
+            const bewertungs = this.bewertungs
+            const auto = bewertungs.find((item) => item.auto == id)
+            console.log(auto);
+            return auto
         }
     },
 

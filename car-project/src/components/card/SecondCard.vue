@@ -3,7 +3,7 @@
     <login-nav class="loginNav" :textData=" autos.length == 0 ? 'Keine Auto'  : `Model:${autos[0].title}` ">
     </login-nav>
     <div style="background-color: rgb(243 237 237)">
-        <filter-bar ></filter-bar>
+        <filter-bar></filter-bar>
 
         <!-- <v-card v-for="auto in autos" :key="auto.id">
             <v-img style="width:250px; height:250px;" :src="getImage(auto)"> </v-img>
@@ -61,10 +61,16 @@
 
                         <div class="container">
                             <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
-                            <div>
-                                <v-icon @click="click" color="red">mdi-currency-eur</v-icon>
-                                <v-icon color="red">mdi-tools</v-icon>
+                            <div v-if="findAuto(auto.id) != undefined   ">
+                                <v-icon @click="click" color="red">mdi-tools</v-icon>
+                                <v-icon color="red" :icon=" auto.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
+                                <!-- <v-icon  @click="click" color="red">mdi-currency-eur</v-icon>
+                                <v-icon @click="click" color="red">mdi-tools</v-icon> -->
                             </div>
+                            <!-- <div v-else="findAuto(auto.id) != undefined & auto.preis  ">
+                                <v-icon  @click="click" color="red">mdi-currency-eur</v-icon>
+                                <v-icon @click="click" color="red">mdi-tools</v-icon>
+                            </div> -->
                         </div>
                         <div style="margin: 10px">
                             <p class="text">
@@ -100,7 +106,9 @@ export default {
     data() {
         return {
             autos: [],
-            link: this.$route.params.id
+            link: this.$route.params.id,
+            bewertungs: [],
+            find: [],
 
         };
     },
@@ -109,6 +117,8 @@ export default {
     },
     mounted() {
         this.getAutos();
+        this.getBewrtung()
+
     },
 
     computed: {
@@ -148,7 +158,7 @@ export default {
             return axios.defaults.url + auto.get_image;
         },
         clickMe() {
-            console.log(this.link,this.padding);
+            console.log(this.auto);
         },
         getAutos() {
             axios
@@ -162,6 +172,30 @@ export default {
                     this.error = true;
                 });
         },
+        getBewrtung() {
+            axios
+                .get(axios.defaults.baseURL + `bewertungs/`)
+                .then((response) => {
+                    this.bewertungs = response.data;
+                    console.log(this.bewertungs);
+
+                })
+                .catch((error) => {
+
+                    this.error = true;
+                });
+
+        },
+        findAuto(id) {
+
+            const bewertungs = this.bewertungs
+            const auto = bewertungs.find((item) => item.auto == id)
+            console.log(auto);
+            this.auto = auto
+            console.log(this.auto);
+            return auto
+
+        }
     },
 };
 </script>

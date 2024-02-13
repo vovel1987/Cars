@@ -88,7 +88,7 @@ export default {
     },
     methods: {
         getImage(model) {
-            console.log(model.get_image);
+           
             return axios.defaults.url + model.get_image;
         },
 
@@ -112,6 +112,7 @@ export default {
                 .then((response) => {
 
                     this.models = response.data;
+                    
 
                 })
                 .catch((error) => {
