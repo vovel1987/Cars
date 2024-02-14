@@ -241,7 +241,8 @@ export default {
     },
     methods: {
         downloadInfo() {
-            alert('download Info')
+           
+           console.log(this.schadenListe[0].auto);
         },
         focusInfo() {
             alert('Schaden Info')

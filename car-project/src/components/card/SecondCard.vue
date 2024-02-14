@@ -3,7 +3,7 @@
     <login-nav class="loginNav" :textData=" autos.length == 0 ? 'Keine Auto'  : `Model:${autos[0].title}` ">
     </login-nav>
     <div style="background-color: rgb(243 237 237)">
-        <filter-bar></filter-bar>
+        <filter-bar @schadenFilter="filterSchaden" @preisFilter="filterPreis"></filter-bar>
 
         <!-- <v-card v-for="auto in autos" :key="auto.id">
             <v-img style="width:250px; height:250px;" :src="getImage(auto)"> </v-img>
@@ -62,11 +62,16 @@
                         <div class="container">
                             <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
                             <div v-if="findAuto(auto.id) != undefined   ">
-                                <v-icon @click="click" color="red">mdi-tools</v-icon>
-                                <v-icon color="red" :icon=" auto.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
-                                <!-- <v-icon  @click="click" color="red">mdi-currency-eur</v-icon>
-                                <v-icon @click="click" color="red">mdi-tools</v-icon> -->
+                                <v-icon color="red" :icon=" cars.schaden  ? 'mdi-tools' : ''"></v-icon>
+                                <v-icon color="red" :icon=" cars.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
+
                             </div>
+                            <!-- <div v-if="findAuto(auto.id) != undefined   ">
+                                <v-icon  color="red" :icon=" cars.schaden  ? 'mdi-tools' : ''"></v-icon>
+                                <v-icon color="red" :icon=" cars.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
+                                <v-icon  @click="click" color="red">mdi-currency-eur</v-icon>
+                                <v-icon @click="click" color="red">mdi-tools</v-icon>
+                            </div> -->
                             <!-- <div v-else="findAuto(auto.id) != undefined & auto.preis  ">
                                 <v-icon  @click="click" color="red">mdi-currency-eur</v-icon>
                                 <v-icon @click="click" color="red">mdi-tools</v-icon>
@@ -109,6 +114,9 @@ export default {
             link: this.$route.params.id,
             bewertungs: [],
             find: [],
+            cars: {},
+            autosFilterSchaden: [],
+            getbewert: [],
 
         };
     },
@@ -118,6 +126,8 @@ export default {
     mounted() {
         this.getAutos();
         this.getBewrtung()
+        // this.getBewertAuto()
+        // this.filterSchaden()
 
     },
 
@@ -157,14 +167,13 @@ export default {
 
             return axios.defaults.url + auto.get_image;
         },
-        clickMe() {
-            console.log(this.auto);
-        },
-        getAutos() {
+      
+        getAutos(value) {
             axios
                 .get(axios.defaults.baseURL + `autos/${this.$route.params.id}`)
                 .then((response) => {
                     this.autos = response.data;
+                    console.log(this.autos);
 
                 })
                 .catch((error) => {
@@ -186,16 +195,59 @@ export default {
                 });
 
         },
+
+        filterPreis(value) {
+
+            if (value) {
+
+                axios
+                    .get(axios.defaults.baseURL + `cars/filterpreis/?search=${this.$route.params.id}`)
+                    .then((response) => {
+                        this.autos = response.data;
+                        console.log(this.getBewertAuto);
+
+                    })
+                    .catch((error) => {
+
+                        this.error = true;
+                    });
+            } else {
+                this.getAutos()
+            }
+
+        },
+
         findAuto(id) {
 
             const bewertungs = this.bewertungs
             const auto = bewertungs.find((item) => item.auto == id)
+            this.cars = auto
             console.log(auto);
-            this.auto = auto
-            console.log(this.auto);
+
             return auto
 
+        },
+        filterSchaden(value) {
+
+            if (value) {
+
+                axios
+                    .get(axios.defaults.baseURL + `cars/filter/?search=${this.$route.params.id}`)
+                    .then((response) => {
+                        this.autos = response.data
+                        console.log(this.autos);
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+
+            } else {
+                this.getAutos()
+            }
+
         }
+
     },
 };
 </script>

@@ -22,8 +22,8 @@
         </v-col>
 
         <v-col cols='2'>
-            <v-btn flat>
-                <v-icon>mdi-tools</v-icon>
+            <v-btn >
+                <v-icon @click='filter' >mdi-tools</v-icon>
                 <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
 
             </v-btn>
@@ -61,7 +61,7 @@
         </v-col>
 
         <v-col cols='auto'>
-            <v-btn flat>
+            <v-btn flat  @click="filter">
                 <v-icon>mdi-tools</v-icon>
                 <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
 
@@ -71,7 +71,7 @@
 
         <v-col cols='auto'>
 
-            <v-btn border='none' flat>
+            <v-btn border='none' flat @click ='filterPreis' >
                 <v-icon>mdi-currency-eur</v-icon>
                 <v-tooltip activator="parent" location="start center">Beipreisung unfertig</v-tooltip>
             </v-btn>
@@ -84,8 +84,13 @@
 
 <script>
 export default {
+    emits:['schadenFilter','preisFilter'],
+
     data() {
         return {
+            value: false,
+            link: this.$route.params.id,
+
 
         }
     },
@@ -118,6 +123,18 @@ export default {
                     return true;
             }
         }
-    }
+    },
+    methods:{
+        filter(){
+            
+            this.value =!this.value
+            this.$emit('schadenFilter',this.value)
+        },
+        filterPreis(){
+            this.value = !this.value
+            this.$emit('preisFilter',this.value)
+        }
+
+    },
 }
 </script>

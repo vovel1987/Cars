@@ -26,42 +26,20 @@ export default {
     props: ['title', 'id', 'image', 'fahrzeuge', 'model'],
     data(){
         return{
-          bewertungs:[],
-          auto:[],
+        
         }
     },
 
     mounted(){
       
-       this.getBewrtung()
+     
     },
 
     methods: {
         clickMe() {
 
         },
-         getBewrtung(id) {
-            axios
-                .get(axios.defaults.baseURL + `bewertungs/`)
-                .then((response) => {
-                    this.bewertungs = response.data;
-                    
-                    
-
-                })
-                .catch((error) => {
-
-                    this.error = true;
-                });
-
-        },
-        findAuto(id) {
-        
-            const bewertungs = this.bewertungs
-            const auto = bewertungs.find((item) => item.auto == id)
-            console.log(auto);
-            return auto
-        }
+ 
     },
 
 }
