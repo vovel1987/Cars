@@ -25,7 +25,7 @@
 
         </v-row> -->
 
-    <filter-bar>
+    <filter-bar @hauptCardFilter="filterReparatur"  @modelPreisFilter="modelFilterPreis"  >
 
     </filter-bar>
 
@@ -47,7 +47,7 @@
                 <!-- /stock/model/:id  -->
                 <!-- '/stock/model/' + mod.title -->
 
-                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image=' mod.get_image ? getImage(mod) : link' :fahrzeuge='mod.get_fahrz' :model='mod.model'></haupt-card>
+                <haupt-card class="mb-4" :title="mod.title" :id="mod.id" :image=' mod.get_image ? getImage(mod) : link' :fahrzeuge='mod.get_fahrz' :model='mod.model'  :reparatur="mod.get_reparatur" :preis='mod.get_preis' ></haupt-card>
             </router-link>
         </v-col>
     </v-row>
@@ -78,6 +78,7 @@ export default {
             models: [],
             autosVohand: [],
             link: '/images/tributo.jpg',
+            autos:[],
 
         }
     },
@@ -112,6 +113,7 @@ export default {
                 .then((response) => {
 
                     this.models = response.data;
+                    console.log(this.models);
                     
 
                 })
@@ -125,6 +127,49 @@ export default {
 
             console.log(data);
             this.getModels(data)
+
+        },
+          filterReparatur(value) {
+
+            if (value) {
+
+                axios
+                    .get(axios.defaults.baseURL + 'models/filter/')
+                    .then((response) => {
+                        this.models = response.data
+                        
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+
+            } else {
+                this.getData()
+            }
+
+        },
+        modelFilterPreis(value){
+
+              if (value) {
+
+                axios
+                    .get(axios.defaults.baseURL + 'models/filterpreis/')
+                    .then((response) => {
+                        this.models = response.data
+                        
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+
+            } else {
+                this.getData()
+            }
+               
+
+           
 
         }
 

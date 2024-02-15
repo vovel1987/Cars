@@ -5,12 +5,16 @@
     <nav-second style="background-color:white;" class="my-15"></nav-second>
 
     <v-card v-if="sizeXs">
+        <v-form  fast-fail @submit.prevent='postHandler'>
+
+
+
         <v-row align='center' class="mx-4">
             <v-col>
                 <h3>Serviceleistung:</h3>
             </v-col>
             <v-col>
-                <v-text-field type='input' color="#dddd9b" variant="underlined" model-value="0" label="Preis"></v-text-field>
+                <v-text-field type='input' color="#dddd9b" variant="underlined" v-model='price' label="Preis"></v-text-field>
             </v-col>
         </v-row>
         <v-divider class="border-opacity-100 " color="black">
@@ -20,15 +24,15 @@
         <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
 
         </schaden-elem>
-          <v-divider class="border-opacity-100 " color="black"></v-divider>
+        <v-divider class="border-opacity-100 " color="black"></v-divider>
         <v-row class="pt-2">
             <v-col cols='12' align='center'>
                 <h3>Zusatzreparatur</h3>
             </v-col>
-            <v-col class="pl-6" >
+            <v-col class="pl-6">
                 <!-- <v-textarea style=""></v-textarea> -->
                 <!-- <textarea name="" id=""  rows="3"></textarea> -->
-                 <v-text-field type='input' color="#dddd9b" variant="underlined"  label="Repatur"></v-text-field>
+                <v-text-field type='input' color="#dddd9b" variant="underlined" label="Repatur"></v-text-field>
             </v-col>
             <v-col cols='4'>
                 <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
@@ -36,99 +40,6 @@
         </v-row>
         <v-divider class="border-opacity-100 " color="black"></v-divider>
 
-         <v-row class="ma-5">
-            <v-col>
-                <h2>Gesamtkosten</h2>
-            </v-col>
-            <v-col>
-
-            </v-col>
-            <v-col align='end'>
-                <h2>0 €</h2>
-            </v-col>
-        </v-row>
-           <v-row class="my-5">
-            <v-col align='end'>
-                <v-btn class="button" color='yellow'>
-                    Bepreisung abschliesen
-                </v-btn>
-
-            </v-col>
-        </v-row>
-        
-
-    </v-card>
-
-    <v-card v-else style="background-color:#f5f2f2; padding:0 10px">
-
-        <v-row style="background-color:white; margin:20px; border-radius:10px;" align='center'>
-            <v-col cols='3'>
-                <h3>Serviceleistung:</h3>
-            </v-col>
-            <v-col>
-
-            </v-col>
-            <v-col cols='4'>
-                <v-row align='center' class="px-4">
-                    <v-col>
-
-                        <v-text-field type='input' color="#dddd9b" variant="underlined" model-value="0" label="Preis"></v-text-field>
-                    </v-col>
-                    <v-col cols='1'>
-                        <v-icon>mdi-currency-eur</v-icon>
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
-        <v-divider class="border-opacity-100 " color="black">
-
-        </v-divider>
-        <v-row class="py-2">
-            <v-col>
-
-            </v-col>
-            <v-col cols='4'>
-
-                <v-row>
-                    <v-col cols='3'>
-
-                        <span style="font-size:14px;text-align:center;">
-                            Preis
-                        </span>
-                    </v-col>
-                    <v-col cols='5'>
-                        <span style="font-size:14px;text-align:center;">
-                            Wird behoben
-                        </span>
-
-                    </v-col>
-                    <v-col cols='4'>
-
-                        <span style="font-size:14px;text-align:center;">
-                            Behoben
-                        </span>
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
-        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
-
-        </schaden-elem>
-
-        <v-row>
-            <v-col align='center'>
-                <h3>Zusatzreparatur</h3>
-            </v-col>
-            <v-col>
-                <v-textarea></v-textarea>
-            </v-col>
-            <v-col>
-                <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
-            </v-col>
-        </v-row>
-        <v-divider class="border-opacity-100 " color="black">
-
-        </v-divider>
         <v-row class="ma-5">
             <v-col>
                 <h2>Gesamtkosten</h2>
@@ -137,17 +48,114 @@
 
             </v-col>
             <v-col align='end'>
-                <h2>0 €</h2>
+                <h2>{{this.totalPrice()}} €</h2>
             </v-col>
         </v-row>
         <v-row class="my-5">
             <v-col align='end'>
-                <v-btn class="button" color='yellow'>
+                <v-btn  @click="postHandler" class="button" color='yellow'>
                     Bepreisung abschliesen
                 </v-btn>
 
             </v-col>
         </v-row>
+        </v-form>
+
+    </v-card>
+
+    <v-card v-else style="background-color:#f5f2f2; padding:0 10px">
+
+        <v-form  fast-fail @submit.prevent='postHandler'>
+
+            <v-row style="background-color:white; margin:20px; border-radius:10px;" align='center'>
+                <v-col cols='3'>
+                    <h3>Serviceleistung:</h3>
+                </v-col>
+                <v-col>
+
+                </v-col>
+                <v-col cols='4'>
+                    <v-row align='center' class="px-4">
+                        <v-col>
+
+                            <v-text-field type='input' color="#dddd9b" variant="underlined" v-model="price" label="Preis"></v-text-field>
+                        </v-col>
+                        <v-col cols='1'>
+                            <v-icon>mdi-currency-eur</v-icon>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <v-divider class="border-opacity-100 " color="black">
+
+            </v-divider>
+            <v-row class="py-2">
+                <v-col>
+
+                </v-col>
+                <v-col cols='4'>
+
+                    <v-row>
+                        <v-col cols='3'>
+
+                            <span style="font-size:14px;text-align:center;">
+                                Preis
+                            </span>
+                        </v-col>
+                        <v-col cols='5'>
+                            <span style="font-size:14px;text-align:center;">
+                                Wird behoben
+                            </span>
+
+                        </v-col>
+                        <v-col cols='4'>
+
+                            <span style="font-size:14px;text-align:center;">
+                                Behoben
+                            </span>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
+
+            </schaden-elem>
+
+            <v-row>
+                <v-col align='center'>
+                    <h3>Zusatzreparatur</h3>
+                </v-col>
+                <v-col>
+                    <v-textarea v-model='zusatz'></v-textarea>
+                </v-col>
+                <v-col>
+                    <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
+                </v-col>
+            </v-row>
+            <v-divider class="border-opacity-100 " color="black">
+
+            </v-divider>
+            <v-row class="ma-5">
+                <v-col>
+                    <h2>Gesamtkosten</h2>
+                </v-col>
+                <v-col>
+
+                </v-col>
+                <v-col align='end'>
+                    <h2>{{this.totalPrice()}} €</h2>
+                </v-col>
+            </v-row>
+            <v-row class="my-5">
+                <v-col align='end'>
+                    <v-btn @click="postHandler" class="button" color='yellow'>
+                        Bepreisung abschliesen
+                    </v-btn>
+
+                </v-col>
+            </v-row>
+
+        </v-form>
 
     </v-card>
 
@@ -170,6 +178,12 @@ export default {
         return {
             schaden: 'Schadenliste',
             schadenListe: [],
+            preisTotal: [],
+            preis: [],
+            servicePreis: [],
+
+            price: undefined,
+            zusatz: undefined,
 
             textFolder: [{
                     id: 1,
@@ -211,6 +225,14 @@ export default {
         this.getData()
     },
     computed: {
+        // form() {
+        //     return {
+        //         zusatzReparatur: this.zusatz,
+        //         serviceLeistung: this.price
+
+        //     }
+        // },
+
         isMobile() {
             switch (this.$vuetify.display.name) {
                 case "xs":
@@ -241,8 +263,8 @@ export default {
     },
     methods: {
         downloadInfo() {
-           
-           console.log(this.schadenListe[0].auto);
+
+            console.log(this.schadenListe[0].auto);
         },
         focusInfo() {
             alert('Schaden Info')
@@ -255,7 +277,7 @@ export default {
                 .get(axios.defaults.baseURL + `bewertungs/${this.$route.params.id}`)
                 .then((response) => {
                     this.schadenListe = response.data
-                    console.log(this.schadenListe);
+
                 })
 
                 .catch((error) => console.log(error))
@@ -265,6 +287,42 @@ export default {
 
             return axios.defaults.url + auto.get_image;
         },
+
+        totalPrice() {
+            if (this.schadenListe.length == 0) {
+                return 0
+            } else {
+
+                this.preis = this.schadenListe.map((item) => item.preis)
+                this.servicePreis = this.schadenListe.map((item) => item.serviceLeistung)
+
+                this.preisTotal = [...this.preis, ...this.servicePreis]
+                
+
+                return this.preisTotal.reduce((acc, item) => acc + item, 0)
+
+            }
+
+        },
+        postHandler() {
+           console.log('post request');
+
+            const formData = {
+                zusatzReparatur: this.zusatz,
+                serviceLeistung: this.price
+
+            }
+            axios
+                .patch(axios.defaults.baseURL + 'schaden/update/' + this.$route.params.id, formData)
+                .then((response) => {
+                    console.log(response.data);
+
+                    this.$router.push("/stock/vehicle/" + response.data.auto + "/overview")
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
 
     },
 

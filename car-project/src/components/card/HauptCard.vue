@@ -7,8 +7,8 @@
     <div class="container">
         <p style="font-weight:bold; font-size:20px"> {{title.charAt(0).toUpperCase() + title.slice(1)}}</p>
         <div  style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 60px;">
-            <v-icon  color='red'>mdi-currency-eur</v-icon>
-            <v-icon color='red'>mdi-tools</v-icon>
+            <v-icon  color='red'  :icon=" preis ? 'mdi-currency-eur':'' "     ></v-icon>
+            <v-icon color='red'  :icon=" reparatur  ? ' mdi-tools' : '' " ></v-icon>
         </div>
 
     </div>
@@ -23,7 +23,7 @@
 <script>
 import axios from 'axios'
 export default {
-    props: ['title', 'id', 'image', 'fahrzeuge', 'model'],
+    props: ['title', 'id', 'image', 'fahrzeuge', 'model','reparatur','preis'],
     data(){
         return{
         

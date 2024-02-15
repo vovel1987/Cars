@@ -22,8 +22,14 @@
         </v-col>
 
         <v-col cols='2'>
-            <v-btn >
-                <v-icon @click='filter' >mdi-tools</v-icon>
+            <v-btn v-if="!link" flat @click=" filterHauptCard">
+                <v-icon>mdi-tools</v-icon>
+                <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
+
+            </v-btn>
+
+            <v-btn v-else flat @click=" filter">
+                <v-icon>mdi-tools</v-icon>
                 <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
 
             </v-btn>
@@ -32,7 +38,13 @@
 
         <v-col cols='2'>
 
-            <v-btn border='none' flat>
+            <v-btn v-if="!link" border='none' flat @click='filterPreisModels'>
+                <v-icon>mdi-currency-eur</v-icon>
+                <v-tooltip activator="parent" location="start center">Beipreisung unfertig</v-tooltip>
+
+            </v-btn>
+
+            <v-btn v-else border='none' flat @click='filterPreis'>
                 <v-icon>mdi-currency-eur</v-icon>
                 <v-tooltip activator="parent" location="start center">Beipreisung unfertig</v-tooltip>
             </v-btn>
@@ -61,7 +73,14 @@
         </v-col>
 
         <v-col cols='auto'>
-            <v-btn flat  @click="filter">
+
+            <v-btn v-if="!link" flat @click=" filterHauptCard">
+                <v-icon>mdi-tools</v-icon>
+                <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
+
+            </v-btn>
+
+            <v-btn v-else flat @click=" filter">
                 <v-icon>mdi-tools</v-icon>
                 <v-tooltip activator="parent" location="start center">Gutachten unfertig</v-tooltip>
 
@@ -71,7 +90,13 @@
 
         <v-col cols='auto'>
 
-            <v-btn border='none' flat @click ='filterPreis' >
+            <v-btn v-if="!link" border='none' flat @click='filterPreisModels'>
+                <v-icon>mdi-currency-eur</v-icon>
+                <v-tooltip activator="parent" location="start center">Beipreisung unfertig</v-tooltip>
+
+            </v-btn>
+
+            <v-btn v-else border='none' flat @click='filterPreis'>
                 <v-icon>mdi-currency-eur</v-icon>
                 <v-tooltip activator="parent" location="start center">Beipreisung unfertig</v-tooltip>
             </v-btn>
@@ -84,13 +109,12 @@
 
 <script>
 export default {
-    emits:['schadenFilter','preisFilter'],
+    emits: ['schadenFilter', 'preisFilter', 'hauptCardFilter', 'modelPreisFilter'],
 
     data() {
         return {
             value: false,
             link: this.$route.params.id,
-
 
         }
     },
@@ -124,15 +148,28 @@ export default {
             }
         }
     },
-    methods:{
-        filter(){
-            
-            this.value =!this.value
-            this.$emit('schadenFilter',this.value)
-        },
-        filterPreis(){
+    methods: {
+        filter() {
+
             this.value = !this.value
-            this.$emit('preisFilter',this.value)
+            this.$emit('schadenFilter', this.value)
+
+        },
+        filterPreis() {
+            this.value = !this.value
+            this.$emit('preisFilter', this.value)
+
+        },
+
+        filterHauptCard() {
+            this.value = !this.value
+            this.$emit('hauptCardFilter', this.value)
+
+        },
+        filterPreisModels() {
+            this.value = !this.value
+            this.$emit('modelPreisFilter', this.value)
+
         }
 
     },

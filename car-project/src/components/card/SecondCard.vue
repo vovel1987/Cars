@@ -61,11 +61,12 @@
 
                         <div class="container">
                             <p style="font-weight: bold; font-size: 20px">{{ auto.title }}</p>
-                            <div v-if="findAuto(auto.id) != undefined   ">
-                                <v-icon color="red" :icon=" cars.schaden  ? 'mdi-tools' : ''"></v-icon>
-                                <v-icon color="red" :icon=" cars.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
+                            <div>
 
+                                <v-icon color="red" :icon=" auto.get_reparatur  ? 'mdi-tools' : ''"></v-icon>
+                                <v-icon color="red" :icon=" auto.get_preis  ? 'mdi-currency-eur' : ''"> </v-icon>
                             </div>
+
                             <!-- <div v-if="findAuto(auto.id) != undefined   ">
                                 <v-icon  color="red" :icon=" cars.schaden  ? 'mdi-tools' : ''"></v-icon>
                                 <v-icon color="red" :icon=" cars.preis  ? 'mdi-currency-eur' : ''"> </v-icon>
@@ -112,9 +113,9 @@ export default {
         return {
             autos: [],
             link: this.$route.params.id,
-            bewertungs: [],
+           
             find: [],
-            cars: {},
+          
             autosFilterSchaden: [],
             getbewert: [],
 
@@ -125,7 +126,7 @@ export default {
     },
     mounted() {
         this.getAutos();
-        this.getBewrtung()
+      
         // this.getBewertAuto()
         // this.filterSchaden()
 
@@ -167,13 +168,12 @@ export default {
 
             return axios.defaults.url + auto.get_image;
         },
-      
+
         getAutos(value) {
             axios
                 .get(axios.defaults.baseURL + `autos/${this.$route.params.id}`)
                 .then((response) => {
                     this.autos = response.data;
-                    console.log(this.autos);
 
                 })
                 .catch((error) => {
@@ -181,20 +181,7 @@ export default {
                     this.error = true;
                 });
         },
-        getBewrtung() {
-            axios
-                .get(axios.defaults.baseURL + `bewertungs/`)
-                .then((response) => {
-                    this.bewertungs = response.data;
-                    console.log(this.bewertungs);
-
-                })
-                .catch((error) => {
-
-                    this.error = true;
-                });
-
-        },
+     
 
         filterPreis(value) {
 
@@ -204,7 +191,6 @@ export default {
                     .get(axios.defaults.baseURL + `cars/filterpreis/?search=${this.$route.params.id}`)
                     .then((response) => {
                         this.autos = response.data;
-                        console.log(this.getBewertAuto);
 
                     })
                     .catch((error) => {
@@ -217,16 +203,7 @@ export default {
 
         },
 
-        findAuto(id) {
-
-            const bewertungs = this.bewertungs
-            const auto = bewertungs.find((item) => item.auto == id)
-            this.cars = auto
-            console.log(auto);
-
-            return auto
-
-        },
+     
         filterSchaden(value) {
 
             if (value) {
@@ -235,7 +212,6 @@ export default {
                     .get(axios.defaults.baseURL + `cars/filter/?search=${this.$route.params.id}`)
                     .then((response) => {
                         this.autos = response.data
-                        console.log(this.autos);
 
                     })
                     .catch((error) => {
