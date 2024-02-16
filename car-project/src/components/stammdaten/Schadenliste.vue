@@ -5,67 +5,65 @@
     <nav-second style="background-color:white;" class="my-15"></nav-second>
 
     <v-card v-if="sizeXs">
-        <v-form  fast-fail @submit.prevent='postHandler'>
+        <v-form fast-fail @submit.prevent='postHandler'>
 
+            <v-row align='center' class="mx-4">
+                <v-col>
+                    <h3>Serviceleistung:</h3>
+                </v-col>
+                <v-col>
+                    <v-text-field type='input' color="#dddd9b" variant="underlined" v-model='price' label="Preis"></v-text-field>
+                </v-col>
+            </v-row>
+            <v-divider class="border-opacity-100 " color="black">
 
+            </v-divider>
 
-        <v-row align='center' class="mx-4">
-            <v-col>
-                <h3>Serviceleistung:</h3>
-            </v-col>
-            <v-col>
-                <v-text-field type='input' color="#dddd9b" variant="underlined" v-model='price' label="Preis"></v-text-field>
-            </v-col>
-        </v-row>
-        <v-divider class="border-opacity-100 " color="black">
+            <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo'     @check_filter="checkbox_value"    @check_filter_wird="wird_checkbox_value" v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis  :servicePreis=elem.serviceLeistung  :behoben=elem.behoben  :wird_behoben=elem.wird_behoben>
 
-        </v-divider>
+            </schaden-elem>
+            <v-divider class="border-opacity-100 " color="black"></v-divider>
+            <v-row class="pt-2">
+                <v-col cols='12' align='center'>
+                    <h3>Zusatzreparatur</h3>
+                </v-col>
+                <v-col class="pl-6">
+                    <!-- <v-textarea style=""></v-textarea> -->
+                    <!-- <textarea name="" id=""  rows="3"></textarea> -->
+                    <v-text-field type='input' color="#dddd9b" variant="underlined" label="Repatur"></v-text-field>
+                </v-col>
+                <v-col cols='4'>
+                    <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " v-model='checkbox'></v-checkbox>
+                </v-col>
+            </v-row>
+            <v-divider class="border-opacity-100 " color="black"></v-divider>
 
-        <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
+            <v-row class="ma-5">
+                <v-col>
+                    <h2>Gesamtkosten</h2>
+                </v-col>
+                <v-col>
 
-        </schaden-elem>
-        <v-divider class="border-opacity-100 " color="black"></v-divider>
-        <v-row class="pt-2">
-            <v-col cols='12' align='center'>
-                <h3>Zusatzreparatur</h3>
-            </v-col>
-            <v-col class="pl-6">
-                <!-- <v-textarea style=""></v-textarea> -->
-                <!-- <textarea name="" id=""  rows="3"></textarea> -->
-                <v-text-field type='input' color="#dddd9b" variant="underlined" label="Repatur"></v-text-field>
-            </v-col>
-            <v-col cols='4'>
-                <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
-            </v-col>
-        </v-row>
-        <v-divider class="border-opacity-100 " color="black"></v-divider>
+                </v-col>
+                <v-col align='end'>
+                    <h2>{{this.totalPrice()}} €</h2>
+                </v-col>
+            </v-row>
+            <v-row class="my-5">
+                <v-col align='end'>
+                    <v-btn @click="postHandler" class="button" color='yellow'>
+                        Bepreisung abschliesen
+                    </v-btn>
 
-        <v-row class="ma-5">
-            <v-col>
-                <h2>Gesamtkosten</h2>
-            </v-col>
-            <v-col>
-
-            </v-col>
-            <v-col align='end'>
-                <h2>{{this.totalPrice()}} €</h2>
-            </v-col>
-        </v-row>
-        <v-row class="my-5">
-            <v-col align='end'>
-                <v-btn  @click="postHandler" class="button" color='yellow'>
-                    Bepreisung abschliesen
-                </v-btn>
-
-            </v-col>
-        </v-row>
+                </v-col>
+            </v-row>
         </v-form>
 
     </v-card>
 
     <v-card v-else style="background-color:#f5f2f2; padding:0 10px">
 
-        <v-form  fast-fail @submit.prevent='postHandler'>
+        <v-form fast-fail @submit.prevent='postHandler'>
 
             <v-row style="background-color:white; margin:20px; border-radius:10px;" align='center'>
                 <v-col cols='3'>
@@ -78,7 +76,7 @@
                     <v-row align='center' class="px-4">
                         <v-col>
 
-                            <v-text-field type='input' color="#dddd9b" variant="underlined" v-model="price" label="Preis"></v-text-field>
+                            <v-text-field type='input' color="#dddd9b" variant="underlined" v-model="price"  label="Preis"></v-text-field>
                         </v-col>
                         <v-col cols='1'>
                             <v-icon>mdi-currency-eur</v-icon>
@@ -117,7 +115,7 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo' v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis>
+            <schaden-elem @download='downloadInfo' @focus='focusInfo' @priceInfo='reparInfo'     @check_filter="checkbox_value"  @check_filter_wird="wird_checkbox_value"  v-for="elem in schadenListe " :key="elem.id" :autos_seite="elem.autos_seite" :component_autos_seite="elem.component_autos_seite" :element_in_component="elem.element_in_component" :schaden_descr="elem.schaden_descr" :schaden_value="elem.schaden_value" :image_schaden=getImage(elem) :preis=elem.preis :servicePreis=elem.serviceLeistung  :behoben=elem.behoben  :check_wird='elem.wird_behoben'  >
 
             </schaden-elem>
 
@@ -129,7 +127,8 @@
                     <v-textarea v-model='zusatz'></v-textarea>
                 </v-col>
                 <v-col>
-                    <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " :model-value="true"></v-checkbox>
+                    <v-checkbox style="display: flex;font-size: 30px;flex-direction: row;justify-content: center;} " v-model='checkbox'  label='I agree' ></v-checkbox>
+                   
                 </v-col>
             </v-row>
             <v-divider class="border-opacity-100 " color="black">
@@ -184,54 +183,16 @@ export default {
 
             price: undefined,
             zusatz: undefined,
+            checkbox: false,
+            check:false,
+            wird:false,
 
-            textFolder: [{
-                    id: 1,
-                    inen: 'Innenraum',
-                    sitze: 'Sitze',
-                    leder: 'Leder',
-                    fahrS: 'Fahrerseite 1T Heckmotor',
-                    tür: 'Tür außen',
-                    lack: 'Lack',
-                    schweller: 'Schweller',
-                    foli: 'Folierung',
-                    front: 'Front',
-                    scheinwerfer: 'Scheinwerfer',
-                    glas: 'Glas',
-                    stange: 'Stoßstange',
-                    beifahS: 'Beifahrerseite 1T Heckmotor',
-                    tank: 'Tankdeckel',
-                    heck: 'Heck',
-                    diffuser: 'Difusser',
-                    reifenHR: 'Reifen HR',
-                    reifenVR: 'Reifen VR',
-                    felge: 'Felge',
-                    gehause: 'Gehäuse',
-                    kenn: 'Kennzeichenhalter',
-                    dimen1: '<10cm',
-                    dimen2: '<4cm',
-                    ja: 'Ja',
-                    zerk: 'Zerkratzt',
-                    abgeblatert: 'Abgeblättert',
-                    fehlt: 'Fehlt',
-                    steinschlag: 'Steinschlag',
-                    orangehaut: 'Orangehaut',
-                },
-
-            ],
         }
     },
     mounted() {
         this.getData()
     },
     computed: {
-        // form() {
-        //     return {
-        //         zusatzReparatur: this.zusatz,
-        //         serviceLeistung: this.price
-
-        //     }
-        // },
 
         isMobile() {
             switch (this.$vuetify.display.name) {
@@ -262,6 +223,14 @@ export default {
         },
     },
     methods: {
+        checkbox_value(params){
+            this.check=params
+            
+        },
+         wird_checkbox_value(params){
+            this.wird=params
+           
+        },
         downloadInfo() {
 
             console.log(this.schadenListe[0].auto);
@@ -277,6 +246,7 @@ export default {
                 .get(axios.defaults.baseURL + `bewertungs/${this.$route.params.id}`)
                 .then((response) => {
                     this.schadenListe = response.data
+                    console.log(this.schadenListe);
 
                 })
 
@@ -297,7 +267,6 @@ export default {
                 this.servicePreis = this.schadenListe.map((item) => item.serviceLeistung)
 
                 this.preisTotal = [...this.preis, ...this.servicePreis]
-                
 
                 return this.preisTotal.reduce((acc, item) => acc + item, 0)
 
@@ -305,11 +274,16 @@ export default {
 
         },
         postHandler() {
-           console.log('post request');
+            if (!this.checkbox) {
+                alert('Is not agree')
+                return
+            }
 
             const formData = {
                 zusatzReparatur: this.zusatz,
-                serviceLeistung: this.price
+                serviceLeistung: this.price,
+                behoben:this.check,
+                wird_behoben:this.wird,
 
             }
             axios

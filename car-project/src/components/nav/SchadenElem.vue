@@ -1,5 +1,5 @@
 <template>
-<v-row v-if="sizeXs"   style=" margin-top:20px">
+<v-row v-if="sizeXs" style=" margin-top:20px">
     <v-col cols='12' class="ma-3">
         <v-row>
             <v-col cols='12'>
@@ -60,18 +60,22 @@
         </v-row>
         <v-row>
 
-            <v-col  style=" display:flex; align-items: center;">
-               <v-icon @click="$emit('priceInfo')" style="cursor:pointer" size='40'>mdi-tools</v-icon>
+            <v-col style=" display:flex; align-items: center;">
+                <v-icon @click="$emit('priceInfo')" style="cursor:pointer" size='40'>mdi-tools</v-icon>
                 <span style="font-size:14px">-{{preis}} </span>
                 <span style="font-size:14px">€ </span>
             </v-col>
 
             <v-col>
-              <v-checkbox></v-checkbox>
+                <!-- <v-checkbox v-model='checkbox_wird'></v-checkbox> -->
+                <!-- <v-checkbox v-if="wird_behoben" v-model='wird_behoben' @click='wirdFilter' ></v-checkbox>
+               <v-checkbox v-else v-model='checkbox_wird' @click='wirdFilter' ></v-checkbox> -->
             </v-col>
 
             <v-col>
-                 <v-checkbox></v-checkbox>
+                <!-- <v-checkbox :v-model='behoben'></v-checkbox> -->
+                <v-checkbox v-if="behoben" v-model=' behoben ' @click='filter'></v-checkbox>
+                <v-checkbox v-else v-model=' checkbox_behoben ' @click='filter'></v-checkbox>
             </v-col>
 
         </v-row>
@@ -108,6 +112,10 @@
                     {{schaden_value}}
 
                 </span>
+                <span style="font-size:14px">
+                    Kasko Preis: {{preis}}
+
+                </span>
             </v-col>
             <v-col cols='1' style="display: flex; flex-direction: column;justify-content: space-evenly;align-items: center;">
                 <v-icon @click="$emit('download')" style="cursor:pointer" size='40' color='yellow'>mdi-download</v-icon>
@@ -126,16 +134,22 @@
 
             <v-col cols='6' style=" display:flex; align-items: center;">
                 <v-icon @click="$emit('priceInfo')" style="cursor:pointer" size='40'>mdi-tools</v-icon>
-                <span style="font-size:14px">-{{preis}} </span>
+                <span style="font-size:14px">-{{servicePreis}} </span>
                 <span style="font-size:14px">€ </span>
             </v-col>
             <v-col cols='3'>
 
-                <v-checkbox></v-checkbox>
+                <!-- <v-checkbox :modelValue='check_wird'></v-checkbox> -->
+                <!-- <v-checkbox v-if="wird_behoben" v-model="wird_behoben" @click="wirdFilter"></v-checkbox>
+               <v-checkbox v-else v-model="checkbox_wird" @click="wirdFilter" ></v-checkbox> -->
+                 <!-- <v-checkbox v-if="check_wird" :modelValue="check_wird" @click="wirdFilter"></v-checkbox>
+               <v-checkbox v-else :modelValue="checkbox_wird" @click="wirdFilter" ></v-checkbox> -->
 
             </v-col>
             <v-col cols='3'>
-                <v-checkbox></v-checkbox>
+
+                <v-checkbox v-if="behoben" v-model=' behoben ' @click='filter'></v-checkbox>
+                <v-checkbox v-else v-model=' checkbox_behoben ' @click='filter'></v-checkbox>
             </v-col>
 
         </v-row>
@@ -148,8 +162,15 @@
 <script>
 export default {
     props: [
-        'autos_seite', 'component_autos_seite', 'element_in_component', 'schaden_descr', 'schaden_value', 'image_schaden', 'preis'
+        'autos_seite', 'component_autos_seite', 'element_in_component', 'schaden_descr', 'schaden_value', 'image_schaden', 'preis', 'servicePreis', 'behoben', 'check_wird'
     ],
+    emits: ['check_filter', 'check_filter_wird', ],
+    data() {
+        return {
+            checkbox_behoben: false,
+            checkbox_wird: false,
+        }
+    },
     computed: {
 
         isMobile() {
@@ -181,6 +202,22 @@ export default {
         },
 
     },
+    methods: {
+        filter() {
+
+            this.checkbox_behoben = !this.checkbox_behoben
+
+            this.$emit('check_filter', this.checkbox_behoben)
+
+        },
+        wirdFilter() {
+
+            this.checkbox_wird = !this.checkbox_wird
+
+            this.$emit('check_filter_wird', this.checkbox_wird)
+
+        },
+    }
 
 }
 </script>
